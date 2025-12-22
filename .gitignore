@@ -1,0 +1,16 @@
+# =========================
+# Hugo
+# =========================
+
+# Hugo build output
+public/
+
+# Hugo build lock
+.hugo_build.lock
+
+# =========================
+# OS / Editor
+# =========================
+
+# macOS
+.DS_Store
