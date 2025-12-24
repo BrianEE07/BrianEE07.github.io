@@ -1,15 +1,15 @@
 disabled = false
-languageCode = "en"
-languageName = "English"
-weight = 2
-title = "This is Yungwei Fan’s new website — currently under construction…"
+languageCode = "zh-TW"
+languageName = "繁體中文"
+weight = 1
+title = "這是范詠為的新網站啦，建立中......"
 
 [params]
-  displayName = "EN"
-  isoCode = "en"
+  displayName = "繁體中文"
+  isoCode = "zh-TW"
   rtl = false
-  dateFormat = "2 Jan 2006"
-  description = "Wei’s personal website, sharing life experiences, learning journeys, and technical notes."
+  dateFormat = "2006 年 1 月 2 日"
+  description = "為（Wei）的個人網站，分享生活、學習、技術筆記。"
   copyright = "© 2025 范詠為 Yungwei Fan"
   
   # logo = "img/logo.png"
@@ -18,11 +18,11 @@ title = "This is Yungwei Fan’s new website — currently under construction…
   # copyright = "Copy, _right?_ :thinking_face:"
 
 [params.author]
-  name = "Yungwei Fan"
+  name = "范詠為"
   email = "brian.155406@gmail.com"
   image = "img/blowfish_logo.png"
   imageQuality = 96
-  headline = "I'm only human"
+  headline = "我只是個普通人"
   bio = "A little bit about you"
   links = [
     { email = "mailto:brian.155406@gmail.com" },
@@ -32,6 +32,7 @@ title = "This is Yungwei Fan’s new website — currently under construction…
     { threads = "https://www.threads.net/@f_y_w_0827" },
     { youtube = "https://youtube.com/@f_y_w_0827" },
   ]
+
 
 # [params.author]
 #   name = "Your name here"
