@@ -25,6 +25,24 @@
   pageRef = "tags"
   weight = 30
 
+[[main]]
+  name = "Hugo Self-Hosted Website"
+  parent = "Posts"
+  pageRef = "posts/hugo"
+  weight = 10
+
+[[main]]
+  name = "Obsidian Note-Taking"
+  parent = "Posts"
+  pageRef = "posts/obsidian"
+  weight = 20
+
+[[main]]
+  name = "Exchange Student"
+  parent = "Posts"
+  pageRef = "posts/exchange_student"
+  weight = 30
+
 #[[main]]
 #  name = "Blog"
 #  pageRef = "posts"

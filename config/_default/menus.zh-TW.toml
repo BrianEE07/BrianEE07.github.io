@@ -21,8 +21,26 @@
   weight = 20
 
 [[main]]
-  name = "關鍵字"
+  name = "標籤"
   pageRef = "tags"
+  weight = 30
+
+[[main]]
+  name = "Hugo 自架網站"
+  parent = "文章"
+  pageRef = "posts/hugo"
+  weight = 10
+
+[[main]]
+  name = "Obsidian 筆記術"
+  parent = "文章"
+  pageRef = "posts/obsidian"
+  weight = 20
+
+[[main]]
+  name = "交換學生相關"
+  parent = "文章"
+  pageRef = "posts/exchange_student"
   weight = 30
 
 #[[main]]
