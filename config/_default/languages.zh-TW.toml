@@ -2,15 +2,15 @@ disabled = false
 languageCode = "zh-TW"
 languageName = "繁體中文"
 weight = 1
-title = "這是范詠為的新網站啦，建立中......"
+title = "WeiSpace"
 
 [params]
   displayName = "繁體中文"
   isoCode = "zh-TW"
   rtl = false
   dateFormat = "2006 年 1 月 2 日"
-  description = "為（Wei）的個人網站，分享生活、學習、技術筆記。"
-  copyright = "© 2025 范詠為 Yungwei Fan"
+  description = "范詠為（Yungwei Fan）的個人網站，分享生活、學習、技術筆記。"
+  copyright = "© 2025–{ year } 范詠為 Yungwei Fan"
   
   # logo = "img/logo.png"
   # secondaryLogo = "img/secondary-logo.png"
