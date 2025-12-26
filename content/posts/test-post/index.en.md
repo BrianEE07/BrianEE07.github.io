@@ -2,6 +2,8 @@
 title: This is my test post
 date: 2025-12-26T14:38:59+08:00
 draft: false
+tags:
+    - test
 ---
 > EN 正文開始，這篇是測試文章。
 
