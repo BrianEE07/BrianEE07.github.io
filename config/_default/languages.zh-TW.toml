@@ -9,9 +9,10 @@ title = "WeiSpace"
   isoCode = "zh-TW"
   rtl = false
   dateFormat = "2006 年 1 月 2 日"
+  logo = "img/logo_80x60.png"
   description = "范詠為（Yungwei Fan）的個人網站，分享生活、學習、技術筆記。"
   copyright = "© 2025–{ year } 范詠為 Yungwei Fan"
-  
+
   # logo = "img/logo.png"
   # secondaryLogo = "img/secondary-logo.png"
   # description = "My awesome website"
@@ -20,7 +21,7 @@ title = "WeiSpace"
 [params.author]
   name = "范詠為"
   email = "brian.155406@gmail.com"
-  image = "img/blowfish_logo.png"
+  image = "img/author.jpg"
   imageQuality = 96
   headline = "我只是個普通人"
   bio = "A little bit about you"
