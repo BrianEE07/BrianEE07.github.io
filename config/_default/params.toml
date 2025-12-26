@@ -26,9 +26,9 @@ disableImageOptimizationMD = false
 disableTextInHeader = false
 # backgroundImageWidth = 1200
 
-defaultBackgroundImage = "img/lavalamp.svg" # used as default for background images
-defaultFeaturedImage = "img/traffic.svg" # used as default for featured images in all articles
-defaultSocialImage = "img/traffic.svg" # used as default for social media sharing (Open Graph and Twitter)
+defaultBackgroundImage = "img/featured.svg" # used as default for background images
+defaultFeaturedImage = "img/featured.svg" # used as default for featured images in all articles
+defaultSocialImage = "img/featured.svg" # used as default for social media sharing (Open Graph and Twitter)
 hotlinkFeatureImage = false
 # imagePosition = "50% 50%"
 
@@ -102,7 +102,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showZenMode = true
 
 [list]
-  showHero = true
+  showHero = false
   heroStyle = "big" # valid options: basic, big, background, thumbAndBackground
   layoutBackgroundBlur = true # only used when heroStyle equals background or thumbAndBackground
   layoutBackgroundHeaderSpace = true # only used when heroStyle equals background
@@ -126,7 +126,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 [taxonomy]
   showTermCount = true
   showHero = true
-  heroStyle = "big" # valid options: basic, big, background, thumbAndBackground
+  heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
   showBreadcrumbs = true
   showViews = false
   showLikes = false
@@ -134,7 +134,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   cardView = false
 
 [term]
-  showHero = true
+  showHero = false
   heroStyle = "big" # valid options: basic, big, background, thumbAndBackground
   showBreadcrumbs = true
   showViews = false

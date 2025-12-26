@@ -11,12 +11,17 @@
 # ordered by weight from lowest to highest.
 
 [[main]]
-  name = "文章"
-  pageRef = "posts"
+  name = "關於我"
+  pageRef = "todo"
   weight = 10
 
 [[main]]
-  name = "Tags"
+  name = "文章"
+  pageRef = "posts"
+  weight = 20
+
+[[main]]
+  name = "關鍵字"
   pageRef = "tags"
   weight = 30
 
