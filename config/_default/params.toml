@@ -26,7 +26,8 @@ disableImageOptimizationMD = true
 disableTextInHeader = false
 # backgroundImageWidth = 1200
 
-defaultBackgroundImage = "img/featured.svg" # used as default for background images
+#defaultBackgroundImage = "img/featured.svg" # used as default for background images
+defaultBackgroundImage = "img/background.jpeg" # used as default for background images
 defaultFeaturedImage = "img/featured.svg" # used as default for featured images in all articles
 defaultSocialImage = "img/featured.svg" # used as default for social media sharing (Open Graph and Twitter)
 hotlinkFeatureImage = false
@@ -53,7 +54,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 
 [homepage]
   layout = "background" # valid options: page, profile, hero, card, background, custom
-  homepageImage = "img/background.svg" # used in: hero, and card
+  #homepageImage = "IMAGE.jpg" # used in: hero, and card
   showRecent = true
   showRecentItems = 3
   showMoreLink = true
@@ -75,7 +76,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showHero = true
   heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
   layoutBackgroundBlur = true # only used when heroStyle equals background or thumbAndBackground
-  layoutBackgroundHeaderSpace = false # only used when heroStyle equals background
+  layoutBackgroundHeaderSpace = true # only used when heroStyle equals background
   # showBreadcrumbs = false
   showBreadcrumbs = true
   showDraftLabel = true
@@ -102,10 +103,10 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showZenMode = true
 
 [list]
-  showHero = false
-  heroStyle = "big" # valid options: basic, big, background, thumbAndBackground
+  showHero = true
+  heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
   layoutBackgroundBlur = true # only used when heroStyle equals background or thumbAndBackground
-  layoutBackgroundHeaderSpace = true # only used when heroStyle equals background
+  layoutBackgroundHeaderSpace = false # only used when heroStyle equals background
   # showBreadcrumbs = false
   showBreadcrumbs = true
   showSummary = false
@@ -134,8 +135,8 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   cardView = false
 
 [term]
-  showHero = false
-  heroStyle = "big" # valid options: basic, big, background, thumbAndBackground
+  showHero = true
+  heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
   showBreadcrumbs = true
   showViews = false
   showLikes = false
