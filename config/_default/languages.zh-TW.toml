@@ -11,7 +11,7 @@ title = "WeiSpace"
   dateFormat = "2006 年 1 月 2 日"
   logo = "img/logo_80x60.png"
   description = "范詠為（Yungwei Fan）的個人網站，分享生活、學習、技術筆記。"
-  copyright = "© 2025–{ year } 范詠為 Yungwei Fan"
+  copyright = "© { year } 范詠為 Yungwei Fan"
 
   # logo = "img/logo.png"
   # secondaryLogo = "img/secondary-logo.png"

@@ -94,3 +94,5 @@ Without the need for a backend or complex functionality, GitHub Pages is a **low
 Once the roles of each layer and tool are clear, it’s time to start building. The following articles in this series will walk through the entire process step by step, turning this structure into a working website.
 
 > In the next post, we’ll start from the very basics and run our first Markdown-powered site locally using Hugo.
+> 
+> 👉 [Hugo × GitHub Pages – Part 1: Running Your First Site Locally with Hugo](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-1/)

@@ -21,8 +21,8 @@ replyByEmail = false
 # mainSections = ["section1", "section2"]
 # robots = ""
 
-disableImageOptimization = false
-disableImageOptimizationMD = false
+disableImageOptimization = true
+disableImageOptimizationMD = true
 disableTextInHeader = false
 # backgroundImageWidth = 1200
 
@@ -47,7 +47,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 [footer]
   showMenu = true
   showCopyright = true
-  showThemeAttribution = false
+  showThemeAttribution = true
   showAppearanceSwitcher = true
   showScrollToTop = true
 

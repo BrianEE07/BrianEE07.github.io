@@ -31,17 +31,17 @@
   pageRef = "categories/hugo-self-hosted-website"
   weight = 10
 
-[[main]]
-  name = "Obsidian Note-Taking"
-  parent = "Posts"
-  pageRef = "categories/obsidian"
-  weight = 20
+#[[main]]
+#  name = "Obsidian Note-Taking"
+#  parent = "Posts"
+#  pageRef = "categories/obsidian"
+#  weight = 20
 
-[[main]]
-  name = "Exchange Student"
-  parent = "Posts"
-  pageRef = "categories/exchange_student"
-  weight = 30
+#[[main]]
+#  name = "Exchange Student"
+#  parent = "Posts"
+#  pageRef = "categories/exchange_student"
+#  weight = 30
 
 #[[main]]
 #  name = "Blog"
