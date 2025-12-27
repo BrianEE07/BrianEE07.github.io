@@ -23,8 +23,8 @@ title = "WeiSpace"
   email = "brian.155406@gmail.com"
   image = "img/author.jpg"
   imageQuality = 96
-  headline = "我只是個普通人"
-  bio = "A little bit about you"
+  headline = "晉升社畜的菸酒生🧑🏻‍💻"
+  bio = "喜歡創作與內容分享，也習慣用筆記留下每個過程"
   links = [
     { email = "mailto:brian.155406@gmail.com" },
     { github = "https://github.com/BrianEE07" },
@@ -33,7 +33,6 @@ title = "WeiSpace"
     { threads = "https://www.threads.net/@f_y_w_0827" },
     { youtube = "https://youtube.com/@f_y_w_0827" },
   ]
-
 
 # [params.author]
 #   name = "Your name here"
