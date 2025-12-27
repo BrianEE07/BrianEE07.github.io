@@ -5,7 +5,7 @@ weight = 2
 title = "WeiSpace"
 
 [params]
-  displayName = "EN"
+  displayName = "English"
   isoCode = "en"
   rtl = false
   dateFormat = "2 Jan 2006"
