@@ -9,6 +9,9 @@ resources/
 # Hugo build lock
 .hugo_build.lock
 
+# My local scripts
+scripts/
+
 # =========================
 # OS / Editor
 # =========================
