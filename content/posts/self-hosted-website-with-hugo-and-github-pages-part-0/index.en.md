@@ -7,7 +7,7 @@ slug: self-hosted-website-with-hugo-and-github-pages-part-0
 categories: hugo-self-hosted-website
 tags:
   - Hugo
-  - Github-Pages
+  - GitHub-Pages
   - Personal-Website
 ---
 > The very first post on my personal website goes to a “how to build a website” guide 🙂

@@ -7,7 +7,7 @@ slug: self-hosted-website-with-hugo-and-github-pages-part-1
 categories: hugo-self-hosted-website
 tags:
   - Hugo
-  - Github-Pages
+  - GitHub-Pages
   - Personal-Website
 ---
  > 上一篇我介紹了架設靜態網站的基本觀念。

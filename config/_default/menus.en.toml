@@ -12,7 +12,7 @@
 
 [[main]]
   name = "About"
-  pageRef = "todo"
+  pageRef = "about"
   weight = 10
 
 [[main]]
