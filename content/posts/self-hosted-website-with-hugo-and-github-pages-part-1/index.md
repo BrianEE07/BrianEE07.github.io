@@ -12,7 +12,7 @@ tags:
 ---
  > 上一篇我介紹了架設靜態網站的基本觀念。
  > 
- > 👉 [手把手自架個人網站｜Hugo × GitHub Pages – Part 0：先搞懂觀念與架站元素，再開始動手](/posts/self-hosted-website-with-hugo-and-github-pages-part-0/) 
+ > 👉 [手把手自架個人網站｜Hugo × GitHub Pages – Part 0：先搞懂觀念與架站元素，再開始動手](/posts/self-hosted-website-with-hugo-and-github-pages-part-0/)
  > 
  > 本篇用 Hugo 建立專案、設定主題，完成本地上第一篇 Markdown 文章網頁。
 
@@ -85,7 +85,7 @@ hugo v0.152.2+extended+withdeploy darwin/arm64 BuildDate=2025-10-24T15:31:49Z Ve
 
 ### (2) 建立 Hugo 專案
 
-輸入創建專案指令 `hugo new site [專案名稱]`：
+輸入創建專案指令 `hugo new site <專案名稱>`：
 
 ```shell
 hugo new site mysite
@@ -149,7 +149,7 @@ theme = "blowfish" # UNCOMMENT THIS LINE`
 
 #### 新增文章
 
-接著我們來新增第一篇文章，指令為 `hugo new content [檔案路徑]`。
+接著我們來新增第一篇文章，指令為 `hugo new content <檔案路徑>`。
 
 ```shell
 hugo new content posts/my-first-post.md
@@ -207,3 +207,5 @@ Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
 另外可以嘗試編輯文章內容後儲存，網站也會**即時更新預覽**，很方便。
 
 > 下一篇，會接著完成**第一次正式上線**，把 Hugo 網站自動部署到 **GitHub Pages**。
+> 
+> 👉 [手把手自架個人網站｜Hugo × GitHub Pages – Part 2：首次上線，透過 GitHub Actions 自動部署 Hugo 網站到 GitHub Pages](/posts/self-hosted-website-with-hugo-and-github-pages-part-2/)

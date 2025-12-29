@@ -85,7 +85,7 @@ hugo v0.152.2+extended+withdeploy darwin/arm64 BuildDate=2025-10-24T15:31:49Z Ve
 
 ### (2) Create a Hugo Project
 
-Create a new project using `hugo new site [project-name]`:
+Create a new project using `hugo new site <project-name>`:
 
 ```shell
 hugo new site mysite
@@ -149,7 +149,7 @@ theme = "blowfish" # UNCOMMENT THIS LINE`
 
 #### Create Your First Post
 
-Now let’s create our first post using `hugo new content [path]`:
+Now let’s create our first post using `hugo new content <path>`:
 
 ```shell
 hugo new content posts/my-first-post.md
@@ -207,3 +207,5 @@ Because our post is under `content/posts/`, navigating to `http://localhost:1313
 Try editing the post and saving the file—you’ll see the preview update **instantly**, which makes writing extremely convenient.
 
 > In the next article, we’ll complete the **first real deployment**, automatically deploying the Hugo site to **GitHub Pages**.
+> 
+> 👉 [Hugo × GitHub Pages – Part 2: First Deployment with GitHub Actions](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-2/)
