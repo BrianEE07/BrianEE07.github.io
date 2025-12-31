@@ -68,7 +68,7 @@ Setting up a custom domain usually has several practical benefits:
 - **Better for long-term operation**
     - Helps accumulate SEO value and makes sharing easier, such as using the link on business cards or resumes
 
-> [!info] What is SEO?
+> [!info]- What is SEO?
 > SEO (Search Engine Optimization) refers to a set of techniques used to optimize a website’s content and structure so that search engines can better understand and index it, improving its ranking and visibility in search results.
 
 ## 2. Buying Your Own Domain with Namecheap
@@ -87,7 +87,7 @@ If the domain is available, you’ll see **Add to cart**. Different top-level d
 
 Next, proceed through the registration and checkout process. You can leave **AUTO-RENEW** enabled to avoid forgetting to renew the domain after one year. At this stage, there is **no need to purchase an additional SSL certificate**, as GitHub Pages will automatically provide and configure HTTPS later.
 
-> [!info] What is SSL?
+> [!info]- What is SSL?
 > SSL (Secure Sockets Layer) is an encryption technology that secures data transmission between users and websites, preventing eavesdropping or tampering. Once enabled, a site switches from HTTP to HTTPS.
 
 ![](assets/index/file-20251230222422647-5db52b0d-894b-41d3-b1bd-36a935aa1156.png)
@@ -133,7 +133,7 @@ Next, add a **CNAME Record** as shown below. For the `Value`, enter `<userna
 
 ![](assets/index/file-20251231181255529-b8388cb4-f7ca-4cd6-b62e-303ffe2f31ac.png)
 
-> [!NOTE] What’s the difference between an A Record and a CNAME?
+> [!NOTE]+ What’s the difference between an A Record and a CNAME?
 > The **A Record** handles the apex domain (`weiweifan.com`), while the **CNAME** handles subdomains (`www.weiweifan.com`), allowing both to point to the same GitHub Pages site.
 
 ## 4. Setting a Custom Domain on GitHub Pages

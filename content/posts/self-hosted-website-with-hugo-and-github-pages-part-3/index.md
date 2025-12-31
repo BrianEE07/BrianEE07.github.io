@@ -68,7 +68,7 @@ https://example.com
 - **更適合長期經營**
     - 有利於 SEO 成效的累積，也更方便對外分享、使用在名片或履歷連結上
 
-> [!info] SEO 是什麼？
+> [!info]- SEO 是什麼？
 > SEO（Search Engine Optimization，搜尋引擎最佳化）是一系列優化網站內容與結構的方法，讓網站更容易被搜尋引擎理解與收錄，提升搜尋結果中的排名與曝光度。
 
 ## 二、從 Namecheap 購買自己的網域
@@ -87,7 +87,7 @@ https://example.com
 
 接著就進入註冊與結帳流程。**AUTO-RENEW** 可以保留預設勾選，就不用擔心一年後忘記續費被買走。注意這個階段**不需要額外加購 SSL 憑證**，後續 GitHub Pages 會自動提供並設定好 HTTPS。
 
-> [!info] SSL 是什麼？
+> [!info]- SSL 是什麼？
 > SSL（Secure Sockets Layer）是一種網路加密技術，用來保護使用者與網站之間的資料傳輸安全，避免被竊聽或竄改，啟用後，網站會由 HTTP 變為 HTTPS。
 
 ![](assets/index/file-20251230222422647-5db52b0d-894b-41d3-b1bd-36a935aa1156.png)
@@ -133,7 +133,7 @@ https://example.com
 
 ![](assets/index/file-20251231181255529-b8388cb4-f7ca-4cd6-b62e-303ffe2f31ac.png)
 
-> [!NOTE] A Record、CNAME 差別？
+> [!NOTE]+ A Record、CNAME 差別？
 > **A Record** 負責裸網域（`weiweifan.com`），**CNAME** 負責子網域（`www.weiweifan.com`），讓兩者都能指向同一個 GitHub Pages 網站。
 
 ## 四、GitHub Pages 自訂網域
