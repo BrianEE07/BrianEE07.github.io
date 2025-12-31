@@ -367,7 +367,7 @@ If you open this URL, https://brianee07.github.io/, you’ll notice that it redi
 
 In the next article, I’ll explain how to **set up your own custom domain**.
 
-> 👉 Coming Soon
+> 👉 [Hugo × GitHub Pages – Part 3: Custom Domains on GitHub Pages — Buying a Domain from Namecheap and DNS Configuration](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-3/)
 
 ---
 

@@ -349,7 +349,7 @@ git push # 重新依序輸入 GitHub 帳號和剛剛的 Token
 
 相信你點進這個網址， https://brianee07.github.io/ ，會發現網址跳轉到 https://weiweifan.com/ 。下一篇我會介紹怎麼**設定自己的網域名稱**～
 
-> 👉 Coming Soon
+> 👉 [手把手自架個人網站｜Hugo × GitHub Pages – Part 3：GitHub Pages 自訂網域，從 Namecheap 購買自己的網路門牌與 DNS 設定教學](/posts/self-hosted-website-with-hugo-and-github-pages-part-3/)
 
 ---
 

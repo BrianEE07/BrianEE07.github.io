@@ -22,7 +22,7 @@ showZenMode: false
 ---
 During my graduate studies, I focused on research in **Computer Vision**. During that time, I accumulated many ideas and notes, gradually developing the habit of documenting my learning process and thought flow.
 
-I later spent a semester as an exchange student at **Technical University of Munich (TUM)** in Germany. While it was officially an academic exchange, my goal was to travel, explore different countries, and broaden my perspective. During my time in Germany, I not only filmed travel vlogs but also documented my exchange experience and reflections in writing.
+I later spent a semester as an exchange student at **Technical University of Munich (TUM)** in Germany. While it was officially an academic exchange, my goal was to travel, explore different countries, and broaden my perspective. During my time in Germany, I not only filmed [travel vlogs](https://youtube.com/playlist?list=PLjX4nmQ6O9wAjDsIIcJjntjKSk-WvSdlz&si=r_vilNwFYmiiHU2n) but also documented my exchange experience and reflections in writing.
 
 I am currently working as a **Digital Design Engineer** at **MediaTek**. Hoping to continue learning and improving outside of work—and to share that process—I created this website, with the intention of writing consistently over the long term.
 
