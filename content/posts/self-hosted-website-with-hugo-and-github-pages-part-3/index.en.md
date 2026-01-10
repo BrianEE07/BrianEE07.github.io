@@ -71,6 +71,8 @@ Setting up a custom domain usually has several practical benefits:
 > [!info]- What is SEO?
 > SEO (Search Engine Optimization) refers to a set of techniques used to optimize a website’s content and structure so that search engines can better understand and index it, improving its ranking and visibility in search results.
 
+---
+
 ## 2. Buying Your Own Domain with Namecheap
 
 > This part requires a small purchase. A domain usually costs a few hundred TWD per year, which works out to just a few dozen per month. For a clean, personal URL, I think it’s worth it.
@@ -99,6 +101,8 @@ After a successful purchase, you’ll receive an order confirmation email:
 Don’t forget to click the verification link in the other email you receive:
 
 ![](assets/index/file-20251230222952655-12991018-00f4-4c47-98f9-afb110f2dcde.png)
+
+---
 
 ## 3. Configuring DNS on Namecheap
 
@@ -135,6 +139,8 @@ Next, add a **CNAME Record** as shown below. For the `Value`, enter `<userna
 
 > [!NOTE]+ What’s the difference between an A Record and a CNAME?
 > The **A Record** handles the apex domain (`weiweifan.com`), while the **CNAME** handles subdomains (`www.weiweifan.com`), allowing both to point to the same GitHub Pages site.
+
+---
 
 ## 4. Setting a Custom Domain on GitHub Pages
 
@@ -178,4 +184,4 @@ At this point, you can take a short break. As long as the domain itself does not
 
 > The next article will introduce how to set up **Google Analytics** and **Google Search Console** to track traffic and user behavior on a static website, and help Google index your site more quickly and accurately.
 > 
-> 👉 Coming Soon
+> 👉 [Hugo × GitHub Pages – Part 4: Google Analytics and Search Console for Traffic Tracking and Indexing](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-4/)
