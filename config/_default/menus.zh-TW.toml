@@ -37,11 +37,11 @@
 #  pageRef = "categories/obsidian"
 #  weight = 20
 
-#[[main]]
-#  name = "交換學生相關"
-#  parent = "文章"
-#  pageRef = "categories/exchange_student"
-#  weight = 30
+[[main]]
+  name = "交換學生相關"
+  parent = "文章"
+  pageRef = "categories/exchange-student"
+  weight = 30
 
 #[[main]]
 #  name = "Blog"
