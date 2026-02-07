@@ -2,6 +2,8 @@
 title: "Hugo × GitHub Pages – Part 4: Google Analytics and Search Console for Traffic Tracking and Indexing"
 date: 2026-01-10T14:53:44+08:00
 draft: false
+aliases:
+  - "Hugo × GitHub Pages – Part 4: Google Analytics and Search Console for Traffic Tracking and Indexing"
 description: A step-by-step guide to setting up Google Analytics and Google Search Console for a Hugo static website, helping you track traffic, analyze user behavior, and ensure proper indexing by Google.
 slug: self-hosted-website-with-hugo-and-github-pages-part-4
 categories: hugo-self-hosted-website
@@ -11,8 +13,6 @@ tags:
   - personal_website
   - google_analytics
   - google_search_console
-aliases:
-  - "Hugo × GitHub Pages – Part 4: Google Analytics and Search Console for Traffic Tracking and Indexing"
 ---
 > In the previous article, we finished setting up our own domain name and obtained a dedicated URL for the website.
 > 

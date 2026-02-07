@@ -2,6 +2,8 @@
 title: "Hugo × GitHub Pages – Part 3: Custom Domains on GitHub Pages — Buying a Domain from Namecheap and DNS Configuration"
 date: 2025-12-30T21:39:31+08:00
 draft: false
+aliases:
+  - "Hugo × GitHub Pages – Part 3: Custom Domains on GitHub Pages — Buying a Domain from Namecheap and DNS Configuration"
 description: A practical guide to domain names and DNS, showing how to buy a domain from Namecheap and configure a custom domain with HTTPS on GitHub Pages for a Hugo static website.
 slug: self-hosted-website-with-hugo-and-github-pages-part-3
 categories: hugo-self-hosted-website
@@ -10,8 +12,6 @@ tags:
   - github_pages
   - personal_website
   - domain_name
-aliases:
-  - "Hugo × GitHub Pages – Part 3: Custom Domains on GitHub Pages — Buying a Domain from Namecheap and DNS Configuration"
 ---
 > In the previous article, we placed our website content—the “house”—on the “land” provided by GitHub Pages.
 > 

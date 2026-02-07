@@ -2,6 +2,8 @@
 title: "Hugo × GitHub Pages – Part 2: First Deployment with GitHub Actions"
 date: 2025-12-28T10:37:50+08:00
 draft: false
+aliases:
+  - "Hugo × GitHub Pages – Part 2: First Deployment with GitHub Actions"
 description: A step-by-step guide to deploying a static site with Hugo using GitHub Pages and GitHub Actions, explaining the differences from traditional manual workflows, user site rules, caching configuration, and practical considerations for future hosting migration.
 slug: self-hosted-website-with-hugo-and-github-pages-part-2
 categories: hugo-self-hosted-website
@@ -10,8 +12,6 @@ tags:
   - github_pages
   - personal_website
   - github_actions
-aliases:
-  - "Hugo × GitHub Pages – Part 2: First Deployment with GitHub Actions"
 ---
 > In the previous article, we successfully ran our first website locally.
 > 

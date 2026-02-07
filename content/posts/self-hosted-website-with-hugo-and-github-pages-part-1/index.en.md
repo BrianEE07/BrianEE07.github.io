@@ -2,6 +2,8 @@
 title: "Hugo × GitHub Pages – Part 1: Running Your First Site Locally with Hugo"
 date: 2025-12-27T21:22:40+08:00
 draft: false
+aliases:
+  - "Hugo × GitHub Pages – Part 1: Running Your First Site Locally with Hugo"
 description: This article walks through creating a local Hugo project, configuring a theme, and writing the first Markdown post to run a static website locally.
 slug: self-hosted-website-with-hugo-and-github-pages-part-1
 categories: hugo-self-hosted-website
@@ -9,8 +11,6 @@ tags:
   - hugo
   - github_pages
   - personal_website
-aliases:
-  - "Hugo × GitHub Pages – Part 1: Running Your First Site Locally with Hugo"
 ---
 > In the previous article, I talked about the basic ideas behind building a static website.
 > 

@@ -2,6 +2,8 @@
 title: 手把手自架個人網站｜Hugo × GitHub Pages – Part 2：首次上線，透過 GitHub Actions 自動部署 Hugo 網站
 date: 2025-12-28T10:37:36+08:00
 draft: false
+aliases:
+  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 2：首次上線，透過 GitHub Actions 自動部署 Hugo 網站
 description: 一步步教你使用 Hugo 搭配 GitHub Pages 與 GitHub Actions，自動化部署靜態網站，並說明與傳統手動方式的差異、主站規則、快取設定，以及日後更換 Hosting 的實務重點。
 slug: self-hosted-website-with-hugo-and-github-pages-part-2
 categories: hugo-self-hosted-website
@@ -10,8 +12,6 @@ tags:
   - github_pages
   - personal_website
   - github_actions
-aliases:
-  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 2：首次上線，透過 GitHub Actions 自動部署 Hugo 網站
 ---
 > 上一篇文章我們成功地在本地端運行了第一個網頁。
 > 

@@ -2,6 +2,8 @@
 title: 手把手自架個人網站｜Hugo × GitHub Pages – Part 4：Google Analytics 與 Search Console 設定，追蹤流量並讓 Google 正確收錄網站
 date: 2026-01-10T14:53:32+08:00
 draft: false
+aliases:
+  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 4：Google Analytics 與 Search Console 設定，追蹤流量並讓 Google 正確收錄網站
 description: 一步步教你在 Hugo 靜態網站中設定 Google Analytics 與 Google Search Console，追蹤網站流量與使用者行為，並協助 Google 更快且正確地收錄網站內容。
 slug: self-hosted-website-with-hugo-and-github-pages-part-4
 categories: hugo-self-hosted-website
@@ -11,8 +13,6 @@ tags:
   - personal_website
   - google_analytics
   - google_search_console
-aliases:
-  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 4：Google Analytics 與 Search Console 設定，追蹤流量並讓 Google 正確收錄網站
 ---
 > 上一篇文章中，我們把設定好了自己的網域名稱，有了專屬的網址。
 > 

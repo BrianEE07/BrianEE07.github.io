@@ -2,6 +2,8 @@
 title: 手把手自架個人網站｜Hugo × GitHub Pages – Part 1：用 Hugo 在本地跑起第一個網站
 date: 2025-12-27T21:22:34+08:00
 draft: false
+aliases:
+  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 1：用 Hugo 在本地跑起第一個網站
 description: 本篇實作使用 Hugo 建立本地專案，設定主題並撰寫第一篇 Markdown 文章，實際跑起第一個靜態網站，作為 Hugo × GitHub Pages 系列的實作起點。
 slug: self-hosted-website-with-hugo-and-github-pages-part-1
 categories: hugo-self-hosted-website
@@ -9,8 +11,6 @@ tags:
   - hugo
   - github_pages
   - personal_website
-aliases:
-  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 1：用 Hugo 在本地跑起第一個網站
 ---
  > 上一篇我介紹了架設靜態網站的基本觀念。
  > 

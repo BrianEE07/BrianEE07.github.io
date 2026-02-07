@@ -2,6 +2,8 @@
 title: "Hugo × GitHub Pages – Part 0: Core Concepts and Website Building Blocks"
 date: 2025-12-27T16:48:54+08:00
 draft: false
+aliases:
+  - "Hugo × GitHub Pages – Part 0: Core Concepts and Website Building Blocks"
 description: Learn why a self-hosted personal website is worth building, understand static website fundamentals, and explore the core concepts behind using Hugo with GitHub Pages.
 slug: self-hosted-website-with-hugo-and-github-pages-part-0
 categories: hugo-self-hosted-website
@@ -9,8 +11,6 @@ tags:
   - hugo
   - github_pages
   - personal_website
-aliases:
-  - "Hugo × GitHub Pages – Part 0: Core Concepts and Website Building Blocks"
 ---
 > The very first post on my personal website goes to a “how to build a website” guide 🙂
 
