@@ -6,9 +6,11 @@ description: Learn why a self-hosted personal website is worth building, underst
 slug: self-hosted-website-with-hugo-and-github-pages-part-0
 categories: hugo-self-hosted-website
 tags:
-  - Hugo
-  - GitHub-Pages
-  - Personal-Website
+  - hugo
+  - github_pages
+  - personal_website
+aliases:
+  - "Hugo × GitHub Pages – Part 0: Core Concepts and Website Building Blocks"
 ---
 > The very first post on my personal website goes to a “how to build a website” guide 🙂
 

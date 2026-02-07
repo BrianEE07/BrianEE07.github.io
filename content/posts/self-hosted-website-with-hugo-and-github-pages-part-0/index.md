@@ -6,9 +6,11 @@ description: 從寫作平台的限制談起，說明為何選擇自架靜態個�
 slug: self-hosted-website-with-hugo-and-github-pages-part-0
 categories: hugo-self-hosted-website
 tags:
-  - Hugo
-  - GitHub-Pages
-  - Personal-Website
+  - hugo
+  - github_pages
+  - personal_website
+aliases:
+  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 0：先搞懂觀念與架站元素，再開始動手
 ---
 > 個人網站的第一篇文章就獻給「架網站教學」啦～
 

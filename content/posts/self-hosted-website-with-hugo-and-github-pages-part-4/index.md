@@ -6,11 +6,13 @@ description: 一步步教你在 Hugo 靜態網站中設定 Google Analytics 與 
 slug: self-hosted-website-with-hugo-and-github-pages-part-4
 categories: hugo-self-hosted-website
 tags:
-  - Hugo
-  - GitHub-Pages
-  - Personal-Website
-  - Google-Analytics
-  - Google-Search-Console
+  - hugo
+  - github_pages
+  - personal_website
+  - google_analytics
+  - google_search_console
+aliases:
+  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 4：Google Analytics 與 Search Console 設定，追蹤流量並讓 Google 正確收錄網站
 ---
 > 上一篇文章中，我們把設定好了自己的網域名稱，有了專屬的網址。
 > 

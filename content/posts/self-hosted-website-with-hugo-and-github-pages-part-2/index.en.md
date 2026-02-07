@@ -6,10 +6,12 @@ description: A step-by-step guide to deploying a static site with Hugo using Git
 slug: self-hosted-website-with-hugo-and-github-pages-part-2
 categories: hugo-self-hosted-website
 tags:
-  - Hugo
-  - GitHub-Pages
-  - Personal-Website
-  - GitHub-Actions
+  - hugo
+  - github_pages
+  - personal_website
+  - github_actions
+aliases:
+  - "Hugo × GitHub Pages – Part 2: First Deployment with GitHub Actions"
 ---
 > In the previous article, we successfully ran our first website locally.
 > 

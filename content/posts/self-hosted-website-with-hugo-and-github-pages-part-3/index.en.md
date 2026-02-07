@@ -6,10 +6,12 @@ description: A practical guide to domain names and DNS, showing how to buy a dom
 slug: self-hosted-website-with-hugo-and-github-pages-part-3
 categories: hugo-self-hosted-website
 tags:
-  - Hugo
-  - GitHub-Pages
-  - Personal-Website
-  - Domain-Name
+  - hugo
+  - github_pages
+  - personal_website
+  - domain_name
+aliases:
+  - "Hugo × GitHub Pages – Part 3: Custom Domains on GitHub Pages — Buying a Domain from Namecheap and DNS Configuration"
 ---
 > In the previous article, we placed our website content—the “house”—on the “land” provided by GitHub Pages.
 > 

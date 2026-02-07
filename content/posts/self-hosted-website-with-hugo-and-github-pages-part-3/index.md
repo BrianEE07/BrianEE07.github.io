@@ -6,10 +6,12 @@ description: 從網域與 DNS 的基礎觀念開始，實際示範如何在 Name
 slug: self-hosted-website-with-hugo-and-github-pages-part-3
 categories: hugo-self-hosted-website
 tags:
-  - Hugo
-  - GitHub-Pages
-  - Personal-Website
-  - Domain-Name
+  - hugo
+  - github_pages
+  - personal_website
+  - domain_name
+aliases:
+  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 3：GitHub Pages 自訂網域，從 Namecheap 購買自己的網路門牌與 DNS 設定教學
 ---
 > 上一篇文章中，我們把網頁內容這棟「房子」，架設在 GitHub Pages 這塊「土地」上。
 > 

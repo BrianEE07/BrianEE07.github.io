@@ -13,5 +13,7 @@ tags:
   - expatrio
   - fraenk
   - tum
+aliases:
+  - 🇩🇪 Exchange Student Survival Guide (Part 1) – Pre-Departure Checklist
 ---
 > [!missing] This article is currently not available in English

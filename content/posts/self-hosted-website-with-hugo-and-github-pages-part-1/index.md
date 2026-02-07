@@ -6,9 +6,11 @@ description: 本篇實作使用 Hugo 建立本地專案，設定主題並撰寫�
 slug: self-hosted-website-with-hugo-and-github-pages-part-1
 categories: hugo-self-hosted-website
 tags:
-  - Hugo
-  - GitHub-Pages
-  - Personal-Website
+  - hugo
+  - github_pages
+  - personal_website
+aliases:
+  - 手把手自架個人網站｜Hugo × GitHub Pages – Part 1：用 Hugo 在本地跑起第一個網站
 ---
  > 上一篇我介紹了架設靜態網站的基本觀念。
  > 

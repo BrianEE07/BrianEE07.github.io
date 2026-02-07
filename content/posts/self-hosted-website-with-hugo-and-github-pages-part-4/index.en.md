@@ -6,11 +6,13 @@ description: A step-by-step guide to setting up Google Analytics and Google Sear
 slug: self-hosted-website-with-hugo-and-github-pages-part-4
 categories: hugo-self-hosted-website
 tags:
-  - Hugo
-  - GitHub-Pages
-  - Personal-Website
-  - Google-Analytics
-  - Google-Search-Console
+  - hugo
+  - github_pages
+  - personal_website
+  - google_analytics
+  - google_search_console
+aliases:
+  - "Hugo × GitHub Pages – Part 4: Google Analytics and Search Console for Traffic Tracking and Indexing"
 ---
 > In the previous article, we finished setting up our own domain name and obtained a dedicated URL for the website.
 > 

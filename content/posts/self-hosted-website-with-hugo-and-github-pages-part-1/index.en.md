@@ -6,9 +6,11 @@ description: This article walks through creating a local Hugo project, configuri
 slug: self-hosted-website-with-hugo-and-github-pages-part-1
 categories: hugo-self-hosted-website
 tags:
-  - Hugo
-  - GitHub-Pages
-  - Personal-Website
+  - hugo
+  - github_pages
+  - personal_website
+aliases:
+  - "Hugo × GitHub Pages – Part 1: Running Your First Site Locally with Hugo"
 ---
 > In the previous article, I talked about the basic ideas behind building a static website.
 > 
