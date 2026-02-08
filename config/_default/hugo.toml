@@ -6,6 +6,7 @@ theme = "blowfish" # UNCOMMENT THIS LINE
 baseURL = "https://weiweifan.com/"
 # defaultContentLanguage = "en"
 defaultContentLanguage = "zh-TW"
+hasCJKLanguage = true # ensure correct word count & reading time for Chinese, Japanese, and Korean content
 
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
 pluralizeListTitles = "false" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
