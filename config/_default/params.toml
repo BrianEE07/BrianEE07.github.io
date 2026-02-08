@@ -66,7 +66,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 
 [article]
   showDate = true
-  showViews = false
+  showViews = true
   showLikes = false
   showDateOnlyInArticle = false
   # showDateUpdated = false
@@ -146,13 +146,13 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   cardViewScreenWidth = false
 
 [firebase]
-  # apiKey = "XXXXXX"
-  # authDomain = "XXXXXX"
-  # projectId = "XXXXXX"
-  # storageBucket = "XXXXXX"
-  # messagingSenderId = "XXXXXX"
-  # appId = "XXXXXX"
-  # measurementId = "XXXXXX"
+  apiKey = "AIzaSyAUAIgB8maNtlKr-4VaP1dIQEgnZdOLKGg"
+  authDomain = "my-personal-website-635f4.firebaseapp.com"
+  projectId = "my-personal-website-635f4"
+  storageBucket = "my-personal-website-635f4.firebasestorage.app"
+  messagingSenderId = "62671151281"
+  appId = "1:62671151281:web:c921ac7e7629cce8198290"
+  measurementId = "G-E001VMBMH3"
 
 [fathomAnalytics]
   # site = "ABC12345"
