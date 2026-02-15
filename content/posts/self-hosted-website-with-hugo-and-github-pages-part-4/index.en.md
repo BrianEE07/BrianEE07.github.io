@@ -208,6 +208,10 @@ Once verification is complete, click **Go to property**:
 
 ![](assets/index/file-20260110165920350-5f10231e-2ff6-4a6b-bc6f-571ef37f1f49.png)
 
+Supplement: If you have multilingual sitemaps, it is recommended to submit all of them as shown below to avoid potential Google indexing issues.
+
+![](assets/index/file-20260215140900549-7452890c-47a7-4620-9139-33248d2be3d0.png)
+
 After that, search again on Google:
 
 ```
