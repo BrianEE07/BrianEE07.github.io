@@ -64,11 +64,11 @@ In October, NTU completed the nomination to partner universities. From there, th
 | Oct 22 | Received confirmation of application                | Waiting for Admission Letter (early December)                  |
 | Oct 31 | Application deadline                                |                                                                |
 
-**Note¹**: When sending documents back to TUM, remember to **CC the NTU Europe exchange coordinator** so both sides can track your progress.
+**Note ¹**: When sending documents back to TUM, remember to **CC the NTU Europe exchange coordinator** so both sides can track your progress.
 
-**Note²**: Required documents included: CV, study plan, motivation letter, language certificate, passport copy, undergraduate transcript, (graduate transcript if applicable), and (degree certificate if applicable).
+**Note ²**: Required documents included: CV, study plan, motivation letter, language certificate, passport copy, undergraduate transcript, (graduate transcript if applicable), and (degree certificate if applicable).
 
-**Note³**: For TUM, student housing application only required indicating your housing preference in the system. Some universities allocate housing based on application order—apply early if that’s the case. If not assigned housing, Facebook groups (e.g., Taiwanese students in Munich) can help, but always beware of scams.
+**Note ³**: For TUM, student housing application only required indicating your housing preference in the system. Some universities allocate housing based on application order—apply early if that’s the case. If not assigned housing, Facebook groups (e.g., Taiwanese students in Munich) can help, but always beware of scams.
 
 ---
 
