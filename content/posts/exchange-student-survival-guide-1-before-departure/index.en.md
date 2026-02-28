@@ -33,7 +33,7 @@ To help future exchange students heading to Germany avoid unnecessary confusion,
 (Links coming soon)
 
 - (1) **Pre-Departure Checklist** (you’re reading this now)
-- (2) **Packing List Guide** (what to bring from Taiwan vs. buy in Germany) <!--#TODO-->
+- [(2) **Packing List Guide** (what to bring from Taiwan vs. buy in Germany)](/en/posts/exchange-student-survival-guide-2-packing-list/)
 - (3) **What to Do After Arriving in Germany** (residence registration, telecom setup, insurance activation, etc.) <!--#TODO-->
 - (4) **Useful Apps for Daily Life** (transportation, living, language learning) <!--#TODO-->
 - (5) **Before Leaving Germany** (lease termination, insurance cancellation, dormitory deposit refund, and preparations for returning home) <!--#TODO-->
@@ -147,7 +147,7 @@ Below is a timeline of the tasks I handled between February and March before dep
 
 **Note ¹**: The dormitory confirmation email does not always include detailed room information. I didn’t know the room type until I actually moved in. In my case, I was assigned to an 8-person WG (shared kitchen) with a private bathroom. The room was furnished with a bed, mattress, desk, chair, and wardrobe.
 
-The Service Package included a sleeping bag, pillow, pillowcase, and bedsheet. Only an Ethernet port was provided in the room, so it is recommended to bring an Ethernet cable and a Wi-Fi router. <!--👉 [交換行李清單](交換行李清單.md) #TODO-->
+The Service Package included a sleeping bag, pillow, pillowcase, and bedsheet. Only an Ethernet port was provided in the room, so it is recommended to bring an Ethernet cable and a Wi-Fi router. 👉 [Exchange Student Packing List](/en/posts/exchange-student-survival-guide-2-packing-list/)
 
 **Note ²**: The monthly rent was €391.5, with a €430 deposit. A total of three months’ rent plus the deposit had to be paid upfront, amounting to €1604.5.
 
