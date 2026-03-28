@@ -10,3 +10,5 @@ categories: exchange-student
 tags:
   - exchange_student
 ---
+
+![](assets/index/file-20260301184334146-0c12acd6-c793-4ee9-9626-956c6bfe9c93.jpeg "▲ 慕尼黑 Walter-Hopf-Weg（攝於 2025/5/31）")
