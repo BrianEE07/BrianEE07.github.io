@@ -25,7 +25,7 @@ tags:
 
 👉 延伸閱讀（撰寫中待更新）：
 
-- 🏠 **日常生活篇**（**電信**、**網銀帳戶**、**交通月票**、**生活用品採買**等等）
+- 🏠 [**日常生活篇**](/posts/exchange-student-survival-guide-3-2-daily-life-after-arrival-in-germany/)（**電信**、**網銀帳戶**、**交通月票**、**生活用品採買**等等）
 - 🎓 **TUM 學校篇**（針對**慕尼黑工業大學**的時間線）
 
 <!--
@@ -39,11 +39,7 @@ tags:
 
 **入籍**、**開通公保**，以及**啟用限制提領帳戶**，是抵達德國後前一至兩週最重要的行政事項。當初的我對處理順序感到困惑，但實際上三者之間**並沒有嚴格的依賴關係，可以同時進行**。
 
-在準備文件時，通常需要具備以下條件：「德國電話號碼」、「德國住址」、「銀行帳戶」，以及「已正式抵達德國」這個條件。關於德國門號與銀行帳戶的申辦，可參考 **日常生活篇（待更新）**。
-
-<!--
-可參考 [**日常生活篇**](/posts/exchange-student-survival-guide-3-2-daily-life-after-arrival-in-germany/)。
-#TODO-->
+在準備文件時，通常需要具備以下條件：「德國電話號碼」、「德國住址」、「銀行帳戶」，以及「已正式抵達德國」這個條件。關於德國門號與銀行帳戶的申辦，可參考 [**日常生活篇**](/posts/exchange-student-survival-guide-3-2-daily-life-after-arrival-in-germany/)。
 
 ---
 
@@ -308,11 +304,9 @@ Expatrio App 上的 TK 公保狀態欄也會逐步更新，從左圖顯示的處
 
 可下載 TK App（內建英文介面），再使用卡片上的號碼與先前收到的開通碼完成註冊，整個流程相當順利，沒有遇到什麼問題。
 
-{{< figure src="assets/index/file-20260328155209431-9ba19661-9dba-4b1c-9d79-fca5a853e1eb.png" caption="▲ TK App" >}}
+{{< figure src="assets/index/file-20260411211138651-aefd2b59-422d-49a8-ae74-8c50cb6f61be.jpeg" caption="▲ TK 健保卡" >}}
 
-<!--
-多放一張健保卡照片
-#TODO-->
+{{< figure src="assets/index/file-20260328155209431-9ba19661-9dba-4b1c-9d79-fca5a853e1eb.png" caption="▲ TK App" >}}
 
 {{< /timelineItem >}}
 
