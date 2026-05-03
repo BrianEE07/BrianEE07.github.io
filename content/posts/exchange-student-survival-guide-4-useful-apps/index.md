@@ -10,3 +10,5 @@ categories: exchange-student
 tags:
   - exchange_student
 ---
+DB Navigator
+可以用有月票的方式查詢

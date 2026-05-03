@@ -43,6 +43,12 @@
   pageRef = "categories/exchange-student"
   weight = 30
 
+[[main]]
+  name = "AI Agent Collaboration"
+  parent = "Posts"
+  pageRef = "categories/ai-agent"
+  weight = 40
+
 #[[main]]
 #  name = "Blog"
 #  pageRef = "posts"

@@ -28,6 +28,19 @@ tags:
 
 ## 🎓 TUM 學校篇
 
+這篇涵蓋我的宿舍介紹、選課流程（尤其大家都會修的德文課）、和一些 TUM 活動。
+
+---
+
+### 1. 宿舍介紹
+
+### 2. 選課流程
+
+### 3. 學校設施
+
+### 4. 學校活動
+
+### 5. 其他
 
 宿舍
 
@@ -65,7 +78,7 @@ TUM 會定期舉辦各種活動，而其活動相關資訊可至: TUMi(e.g. 各�
 買紀念品的話主建築有開到下午兩點的 TUMshop
 
 要講到宿舍嗎？
-
+補辦學生證經驗
 敲桌子
 
 TUM EE 修課規定
@@ -114,6 +127,3 @@ TUM 專門運動的校區
 [Medium](https://shun-fang-shih.medium.com/%E5%BE%B7%E5%9C%8B%E6%B3%A2%E6%98%82%E5%A4%A7%E5%AD%B8%E4%BA%A4%E6%8F%9B%E5%BF%83%E5%BE%97-%E4%B8%8A-d5aa92127e81)
 [Medium](https://shun-fang-shih.medium.com/%E5%BE%B7%E5%9C%8B%E6%B3%A2%E6%98%82%E5%A4%A7%E5%AD%B8%E4%BA%A4%E6%8F%9B%E5%BF%83%E5%BE%97-%E4%B8%AD-1e80ffee77df)
 [Medium](https://shun-fang-shih.medium.com/%E5%BE%B7%E5%9C%8B%E6%B3%A2%E6%98%82%E5%A4%A7%E5%AD%B8%E4%BA%A4%E6%8F%9B%E5%BF%83%E5%BE%97-%E4%B8%8B-7e4a78859c86)
-
-待刪除：
-- 我的地址：Schröfelhofstraße 6 / 0604 81375 München

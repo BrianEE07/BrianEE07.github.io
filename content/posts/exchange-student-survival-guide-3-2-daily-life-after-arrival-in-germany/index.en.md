@@ -1,6 +1,6 @@
 ---
 title: "🇩🇪 Exchange Student Survival Guide – Part 3-2: What to Do After Arriving in Germany (Daily Life)"
-date: 2026-03-27T20:50:02+08:00
+date: 2026-03-29T11:17:52+08:00
 draft: true
 aliases:
   - "🇩🇪 Exchange Student Survival Guide – Part 3-2: What to Do After Arriving in Germany (Daily Life)"
