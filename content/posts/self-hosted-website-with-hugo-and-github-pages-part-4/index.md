@@ -208,10 +208,6 @@ site:<你的網站網址>
 
 ![](assets/index/file-20260110165920350-5f10231e-2ff6-4a6b-bc6f-571ef37f1f49.png)
 
-補充：若有多語言 sitemaps，建議也把它們都提交上去如下，避免 Google index 不到的問題。
-
-![](assets/index/file-20260215140900549-7452890c-47a7-4620-9139-33248d2be3d0.png)
-
 之後再回到 Google 搜尋：
 
 ```

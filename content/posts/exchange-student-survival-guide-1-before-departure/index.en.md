@@ -34,7 +34,9 @@ To help future exchange students heading to Germany avoid unnecessary confusion,
 
 - (1) **Pre-Departure Checklist** (you’re reading this now)
 - [(2) **Packing List Guide** (what to bring from Taiwan vs. buy in Germany)](/en/posts/exchange-student-survival-guide-2-packing-list/)
-- (3) **What to Do After Arriving in Germany** (residence registration, telecom setup, insurance activation, etc.) <!--#TODO-->
+- [(3) **What to Do After Arriving in Germany (Administrative Matters)** (residence registration, public insurance, blocked account activation)](/en/posts/exchange-student-survival-guide-3-1-administrative-matters-after-arrival-in-germany/)
+- (3) **What to Do After Arriving in Germany (Daily Life)** (mobile plan, online banking account, monthly transport pass, daily shopping) <!--#TODO-->
+- (3) **What to Do After Arriving in Germany (TUM University Guide)** (timeline specifically for Technical University of Munich) <!--#TODO-->
 - (4) **Useful Apps for Daily Life** (transportation, living, language learning) <!--#TODO-->
 - (5) **Before Leaving Germany** (lease termination, insurance cancellation, dormitory deposit refund, and preparations for returning home) <!--#TODO-->
 
@@ -119,7 +121,7 @@ The best solution is to ask a friend who is already in Germany to transfer the m
 
 Go to: `TUMonline → Admission → Documents` to download your Certificate of Enrollment.
 
-As for course registration, you can wait until late March to handle it. <!--👉 [交換生到德國後要做什麼](交換生到德國後要做什麼.md) #TODO-->
+As for course registration, you can wait until late March to handle it. <!--👉 [What to Do After Arriving in Germany (TUM University Guide)](/en/posts/exchange-student-survival-guide-3-3-tum-university-guide-after-arrival-in-germany/) #TODO-->
 
 **Note ⁵**: You can consider booking your flight as soon as you receive the Admission Letter. However, I chose to purchase my ticket only after receiving my visa, which felt like a safer option.
 
@@ -159,7 +161,7 @@ For a detailed application guide, refer to: [this article](https://medium.com/im
 
 **Note ⁵**: In Germany, residence registration (Anmeldung) must officially be completed within two weeks of arrival. However, the required document is the _Wohnungsgeberbestätigung_ (landlord confirmation of residence), not the Tenancy Agreement. This document can only be obtained after moving in.
 
-If arriving early while the lease starts later (e.g., April 1), registration cannot be completed immediately. In practice, this situation does not typically result in penalties. Since appointment slots are limited, it is advisable to book a registration appointment online one to two weeks before moving into the dormitory. <!--👉 [交換生到德國後要做什麼](交換生到德國後要做什麼.md) #TODO-->
+If arriving early while the lease starts later (e.g., April 1), registration cannot be completed immediately. In practice, this situation does not typically result in penalties. Since appointment slots are limited, it is advisable to book a registration appointment online one to two weeks before moving into the dormitory. 👉 [What to Do After Arriving in Germany (Administrative Matters)](/en/posts/exchange-student-survival-guide-3-1-administrative-matters-after-arrival-in-germany/)
 
 ---
 

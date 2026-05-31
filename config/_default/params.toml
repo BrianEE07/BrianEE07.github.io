@@ -21,7 +21,7 @@ replyByEmail = false
 # mainSections = ["section1", "section2"]
 # robots = ""
 
-disableImageOptimization = true
+disableImageOptimization = false
 disableImageOptimizationMD = true
 disableTextInHeader = false
 # backgroundImageWidth = 1200
