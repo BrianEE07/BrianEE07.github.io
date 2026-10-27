@@ -1,0 +1,13 @@
+/* Keep the full site name and language label readable on narrow screens. */
+@media (max-width: 767px) {
+  .main-menu { column-gap: 0.5rem; }
+  .main-menu > .flex > nav:first-child { flex-shrink: 0; white-space: nowrap; }
+  .main-menu > .flex > .flex { column-gap: 0.75rem; }
+  .main-menu > .flex > .flex > span:empty { display: none; }
+  .main-menu .nested-menu { white-space: nowrap; }
+}
+
+@media (max-width: 374px) {
+  .main-menu > div:first-child { display: none; }
+  .main-menu > .flex > .flex { column-gap: 0.5rem; }
+}
