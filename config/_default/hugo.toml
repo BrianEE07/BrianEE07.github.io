@@ -3,7 +3,7 @@
 # https://blowfish.page/docs/getting-started/
 
 theme = "blowfish" # UNCOMMENT THIS LINE
-baseURL = "https://weiweifan.com/"
+baseURL = "https://blog.yungwei.com/"
 # defaultContentLanguage = "en"
 defaultContentLanguage = "zh-TW"
 hasCJKLanguage = true # ensure correct word count & reading time for Chinese, Japanese, and Korean content

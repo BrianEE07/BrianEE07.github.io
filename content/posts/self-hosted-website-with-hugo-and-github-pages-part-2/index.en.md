@@ -4,7 +4,7 @@ date: 2025-12-28T10:37:50+08:00
 draft: false
 aliases:
   - "Hugo × GitHub Pages – Part 2: First Deployment with GitHub Actions"
-description: A step-by-step guide to deploying a static site with Hugo using GitHub Pages and GitHub Actions, explaining the differences from traditional manual workflows, user site rules, caching configuration, and practical considerations for future hosting migration.
+description: A step-by-step guide to deploying a static site with Hugo using GitHub Pages and GitHub Actions, explaining the differences from traditional manual workflows, user and project site rules, caching configuration, and practical considerations for future hosting migration.
 slug: self-hosted-website-with-hugo-and-github-pages-part-2
 categories: hugo-self-hosted-website
 tags:
@@ -13,187 +13,116 @@ tags:
   - personal_website
   - github_actions
 ---
-> In the previous article, we successfully ran our first website locally.
-> 
-> 👉 [Hugo × GitHub Pages – Part 1: Running Your First Site Locally with Hugo](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-1/)
-> 
-> In this article, we will walk through how to deploy your site to GitHub Pages and use GitHub Actions to automate the workflow. Getting your site online is actually much easier than it sounds!
+> In Part 1, we ran our first Hugo website locally.
+>
+> 👉 [Part 1: Running your first site locally with Hugo](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-1/)
+>
+> This time, we will publish `Weisblog/` on GitHub Pages and let GitHub Actions build and deploy it. After that, we can preview a post locally and push it when it is ready.
 
-## 1. What Is GitHub Pages?
+## 1. What is GitHub Pages?
 
-GitHub Pages is a **free static site hosting service** provided by GitHub. It allows you to publish a website directly from a repository.
-
-Put simply: if we think of the compiled site under the `public/` directory from the previous article as a **house**, then GitHub Pages is the **land** that the house sits on. And it’s free land — hard to say no to that 😄
+GitHub Pages is GitHub’s static website hosting service. If Hugo’s `public/` directory is the house, GitHub Pages is the land it sits on. Free land? Hard to say no to that. XD
 
 ![](assets/index.en/file-20251228215828251-6f329909-bc0a-46ac-b930-884c0b2ba849.png)
 
----
+## 2. Create the Weisblog repo and understand its URL
 
-## 2. Create a New GitHub Repository
+Create a public repository named `Weisblog` on [GitHub](https://github.com/). This is the example name for this guide. Replace every `<username>` below with your own GitHub username.
 
-First, create a repository on [GitHub](https://github.com/) (we’ll refer to it as a “repo” below).
+The default Pages URL depends on the repository name:
 
-![](assets/index/file-20251226161539378-f29337d4-dd0a-4e5a-b139-13cba3740b86.png)
+| Type | Repository name | Default URL |
+| --- | --- | --- |
+| User site | `<username>.github.io` | `https://<username>.github.io/` |
+| Project site | `Weisblog` | `https://<username>.github.io/Weisblog/` |
 
-It is recommended to name the repo:
+Each account can have one user site, while project sites are configured per repository. We are using a **project site**, so the repo does not have to be named `<username>.github.io`. See [GitHub’s naming rules](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 
-```
-<username>.github.io
-```
+With a custom domain configured, the same project site can serve its content at `https://blog.yungwei.com/`, without `/Weisblog/`. We will do that in Part 3; keep these two URL structures separate for now.
 
-Make sure the repository is set to **public**. With this naming convention, no additional configuration is required.
+Leave README, license, and `.gitignore` initialization unchecked when creating the repo. That avoids starting with separate initial histories on GitHub and your computer.
 
-![](assets/index/file-20251226161539380-2fc51c13-feee-4cb2-b964-3402410e3d28.png)
+## 3. Choose one deployment method
 
-GitHub Pages URL Rules:
+I started by copying `public/` manually. Repeating that for every update became tedious, so I switched to GitHub Actions. I recommend going straight to [Method 2](#method-2-automatic-deployment-with-github-actions). Method 1 is here for anyone who wants to understand the publishing steps first.
 
-| Type             | URL                                         | Description        |
-| ---------------- | ------------------------------------------- | ------------------ |
-| **User Site**    | `https://<username>.github.io/`             | One per account    |
-| **Project Site** | `https://<username>.github.io/<repo-name>/` | One per repository |
+### Method 1: Publish the built files manually
 
-If the repository name is `<username>.github.io`, GitHub Pages treats it as a **user site**. Any other repository name will be deployed as a **project site**.
+With this approach, your local `Weisblog/` keeps the Hugo source, while the GitHub `Weisblog` repo holds only the generated website. Use a separate local folder for the output so you do not mix the two.
 
----
-
-## 3. Deployment Options
-
-There are two ways to deploy a Hugo site to GitHub Pages. The first (legacy) method is simpler to understand but requires more manual steps. The second approach, using **GitHub Actions**, is highly recommended. 👉 [Method 2 (GitHub Actions)](#method-2-recommended--github-actions)
-
----
-
-### Method 1: Legacy Manual Deployment
-
-Create a directory next to your Hugo project (e.g. `mysite/`) named `<username>.github.io`:
+Run these commands from the parent directory beside `Weisblog/`, replacing the username first:
 
 ```shell
-mkdir BrianEE07.github.io
-cd BrianEE07.github.io
-```
-
-Initialize the repository (replace with your own username):
-
-```shell
-echo "# BrianEE07.github.io" >> README.md
+mkdir Weisblog-public
+cd Weisblog-public
 git init
-git add README.md
-git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/BrianEE07/BrianEE07.github.io.git
+git remote add origin "https://github.com/<username>/Weisblog.git"
+cd ../Weisblog
+```
+
+Set only the posts you intend to publish to `draft = false`, or `draft: false` with YAML frontmatter. Keep all other drafts as they are.
+
+Set the existing `baseURL` in `config/_default/hugo.toml` to your project site URL:
+
+```toml
+baseURL = "https://<username>.github.io/Weisblog/"
+```
+
+The `rsync --delete` command below removes files from the output folder when they are no longer present in `public/`. Its destination must be the new `Weisblog-public/` folder, never your source or another project.
+
+```shell
+hugo --cleanDestinationDir
+rsync -av --delete --exclude='.git/' public/ ../Weisblog-public/
+touch ../Weisblog-public/.nojekyll
+cd ../Weisblog-public
+git add .
+git commit -m "Publish Hugo site"
 git push -u origin main
 ```
 
-Your repo should now look like this:
+In the repo’s `Settings` → `Pages`, choose **Deploy from a branch**, with `main` and `/ (root)`. The `.nojekyll` file tells GitHub to serve the static files without treating them as a Jekyll project.
 
-![](assets/index/file-20251226161539379-b02fb1fd-3fd9-4103-b94c-878300e025c7.png)
+Once deployment succeeds, open the URL shown on the Pages screen and check `/Weisblog/posts/` and its images. For future updates, repeat the build, sync, and push from the Hugo project.
 
-Go back to your Hugo project:
+If you choose this method, stop here. Switching to Actions requires replacing the deployment repo’s files with the Hugo source, keeping its `.git` history and reviewing the differences. Do not continue with the following commands from the output folder.
 
-```shell
-cd ../mysite
-```
+### Method 2: Automatic deployment with GitHub Actions
 
-Build the site:
+This approach pushes the complete Hugo source project `Weisblog/` to the matching repo and lets GitHub build and publish it. There is no need to upload local `public/` files. The [official Hugo deployment guide](https://gohugo.io/host-and-deploy/deploy-to-github-pages/) follows this process too.
 
-```shell
-rm -rf public # To clean up previously compiled build output
-hugo
-```
-
-Copy the generated files under `public/` into the local repo and push:
-
-```shell
-cp -r public/* ../BrianEE07.github.io
-cd ../BrianEE07.github.io
-git add .
-git commit -m "add my first post"
-git push
-```
-
-When you see a green checkmark ✅ under **Deployments** on GitHub, the site is live. (It may take a moment.)
-
-![](assets/index/file-20251226161539379-5be51083-8143-4a16-b35c-b58ce46d754c.png)
-
-Finally, you can visit `https://<username>.github.io/` to see your updated site! For example, in my case it’s `https://brianee07.github.io/posts/`.
-
-(If something looks wrong, try opening it in an incognito/private window.)
-
-> [!tip]
-> Posts with `draft = true` will not be built by `hugo`. Set it to `false` to publish.
-
-After that, whenever you update the site, just **run the `hugo` build, copy, and upload process again**.
-
----
-
-### Method 2: Recommended — GitHub Actions
-
-I initially used Method 1, but having to manually copy files before every push quickly became tedious. Later, I found a **more automated approach** online. This is also the method recommended in the [official Hugo documentation](https://gohugo.io/host-and-deploy/host-on-github-pages/), so you can think of it as a more or less “set it once and forget it” solution.
-
-> Simply put, this approach pushes the Hugo project `mysite/` directly to the `<username>.github.io` GitHub repository. After each push, GitHub automatically runs the Hugo build and deployment process.
-
-First, create a `.gitignore` file in your Hugo project directory `mysite/`:
-
-```shell
-touch .gitignore
-```
-
-Add the paths that should not be pushed to GitHub by editing `.gitignore`:
+These instructions start after Part 1, before pushing anything with Method 1. Create `.gitignore` in `Weisblog/`:
 
 ```gitignore
-# =========================
-# Hugo
-# =========================
-
-# Hugo build output
 public/
 resources/
-
-# Hugo build lock
 .hugo_build.lock
-
-# =========================
-# OS / Editor
-# =========================
-
-# macOS
 .DS_Store
 ```
 
-We ignore `public/` because GitHub will build the site in the cloud.
-
-> [!important]
-> When editing articles, it is still strongly recommended to run `hugo server` locally to build and preview the site before pushing. This helps avoid unnecessary back-and-forth debugging.
-
-Push the project to GitHub (since `git init` was already run when installing the theme, you don’t need to do it again):
+We already ran `git init` while installing the theme. Confirm you are in the Hugo source folder, then connect it to the empty repository:
 
 ```shell
-git add .
-git remote add origin https://github.com/BrianEE07/BrianEE07.github.io.git
+git remote -v
+git remote add origin "https://github.com/<username>/Weisblog.git"
 git branch -M main
-git commit -m "Initial commit"
+git add .
+git commit -m "Add Hugo project"
 git push -u origin main
 ```
 
-Initial failures are expected because GitHub Pages tries Jekyll by default.
+If `git remote -v` already lists `origin`, check its destination. Skip `remote add` if it is correct. Use `git remote set-url origin <your-repo-URL>` only when you intend to change it.
 
-![](assets/index/file-20251229222350757-7e17ec63-080e-49f8-a3e4-1e39681e1877.png)
+Open the `Weisblog` repo’s `Settings` → `Pages` → `Build and deployment` and set Source to **GitHub Actions**. There is no need to run Jekyll first or expect an initial failure as part of setup.
 
-This also shows that **if anything goes wrong in the automated process, it will stop immediately, ensuring that only a correct version of the site gets deployed**. You can click **Details** to see exactly what went wrong.
-
-Next, we need to set up the automation workflow. Go to `Settings` → `Pages` → `Build and deployment`, and change `Source` to **GitHub Actions**.
-
-(By contrast, Method 1 uses the default **Deploy from a branch** option.)
-
-![](assets/index/file-20251229223057206-47cbf2df-95a4-4a52-ac49-bc1277d5830e.png)
-
-Then, create `.github/workflows/hugo.yaml` in your local `mysite/` directory:
+Create the workflow file in your local `Weisblog/`:
 
 ```shell
 mkdir -p .github/workflows
 touch .github/workflows/hugo.yaml
 ```
 
-Edit the file as follows. You can also copy this directly from the [official Hugo documentation](https://gohugo.io/host-and-deploy/host-on-github-pages/#step-4). In short, this file defines the automated steps for GitHub Actions:
+Save the following in `.github/workflows/hugo.yaml`. This example pins Hugo 0.168.0, meeting Blowfish’s current minimum requirement. It is not a claim that this version will always be the latest. If your local setup or theme later needs a newer version, update `HUGO_VERSION` and its download filename, and check the other dependencies against the theme’s requirements. The build time zone is Taipei.
 
 ```yaml
 name: Build and deploy
@@ -218,9 +147,9 @@ jobs:
     env:
       DART_SASS_VERSION: 1.97.1
       GO_VERSION: 1.25.5
-      HUGO_VERSION: 0.153.1
+      HUGO_VERSION: 0.168.0
       NODE_VERSION: 24.12.0
-      TZ: Europe/Oslo
+      TZ: Asia/Taipei
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -250,10 +179,10 @@ jobs:
           echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
       - name: Install Hugo
         run: |
-          curl -sLJO "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          curl -sLJO "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
           mkdir "${HOME}/.local/hugo"
-          tar -C "${HOME}/.local/hugo" -xf "hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
-          rm "hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          tar -C "${HOME}/.local/hugo" -xf "hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
+          rm "hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
           echo "${HOME}/.local/hugo" >> "${GITHUB_PATH}"
       - name: Verify installations
         run: |
@@ -263,7 +192,9 @@ jobs:
           echo "Node.js: $(node --version)"
       - name: Install Node.js dependencies
         run: |
-          [[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true
+          if [[ -f package-lock.json || -f npm-shrinkwrap.json ]]; then
+            npm ci
+          fi
       - name: Configure Git
         run: |
           git config core.quotepath false
@@ -304,92 +235,53 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-Yes, it’s long — but you can just copy and paste it. 😄
+Yes, it is long. XD Start with the main steps: Checkout includes the theme submodule, Build creates `public/`, Upload transfers the output, and Deploy publishes it. `--baseURL` uses the URL returned by Pages, so it follows either the project site or Custom domain setting.
 
-Next, edit `config/_default/hugo.toml` (by default, this file is `hugo.toml` under `mysite/`. Since we used the Blowfish theme in the previous article, the file is located under `config/_default/`). 
-
-Add the following configuration somewhere in the file:
+Also update the existing `baseURL` in `config/_default/hugo.toml` so local production builds use the correct address. Edit the existing key instead of adding a duplicate. Before configuring a custom domain, use:
 
 ```toml
+baseURL = "https://<username>.github.io/Weisblog/"
+
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
 ```
 
-Finally, push everything to GitHub (if you encounter issues, see 👉 [Troubleshooting](#troubleshooting)):
+`caches.images` stores Hugo image-processing results, so operations such as Resize, Fit, and Fill do not have to start over each time. The workflow’s Cache restore/save steps share that cache between Actions runs.
+
+Set posts intended for publication to `draft: false` (`draft = false` in TOML), keeping other drafts unchanged. Preview public content with `hugo server`; add `-D` only when you need to inspect drafts. The production workflow does not use `-D`.
+
+Then push:
 
 ```shell
 git add .
-git commit -m "add actions workflow YAML"
+git commit -m "Add Pages deployment workflow"
 git push
 ```
 
-When you see a green checkmark ✅ under **Deployments** on GitHub, the site is live. (It may take a moment.)
+Check that both build and deploy succeed in Actions, then open the URL provided by Pages. A green checkmark means the workflow completed. You still need to check pages, navigation, and images yourself; the workflow cannot judge whether the writing is correct.
 
-![](assets/index/file-20251229224715460-c3df885a-5c7f-4d2f-9510-390edbd29c20.png)
-
-Finally, you can visit `https://<username>.github.io/` to see your updated site! For example, in my case it’s `https://brianee07.github.io/posts/`.
-
-(If something looks wrong, try opening it in an incognito/private window.)
-
-> [!tip]
-> Posts with `draft = true` will not be built. Set it to `false` to publish.
-
-From now on, updating the site only requires **pushing your changes to GitHub again**.
+For later updates, preview locally, review what you are committing, and push. If the URL includes `/Weisblog/`, article and asset links must keep that prefix too. Hugo’s `relURL`/`relref` can generate links in templates and content; hard-coding `/posts/` would instead point to the account’s root site.
 
 #### Troubleshooting
 
-If you see the following error when running `git push`, it means your token does not have sufficient permissions:
+I once had GitHub reject a workflow push because my classic token lacked the `workflow` scope:
 
-```shell
-! [remote rejected] main -> main (refusing to allow a Personal Access Token to create or update workflow `.github/workflows/hugo.yaml` without `workflow` scope)
-error: failed to push some refs to 'https://github.com/BrianEE07/BrianEE07.github.io.git'
+```text
+refusing to allow a Personal Access Token to create or update workflow
+.github/workflows/hugo.yaml without workflow scope
 ```
 
-Go to your GitHub profile picture (top-right) → `Settings` → `Developer Settings` → `Personal access tokens` → `Tokens (classic)` → `Generate new token (classic)`.
+If you use HTTPS with a classic token, check its `repo` and `workflow` scopes under GitHub personal `Settings` → `Developer settings` → `Personal access tokens`. With a fine-grained token, check Contents and Workflows write access for the target repo. A rejected push is different from an Actions build failure; first identify where it failed.
 
-![](assets/index/file-20251229230605719-d38d7907-a8ab-4898-9519-284e1bcdbd34.png)
+If macOS keeps using an old credential, find the matching account’s `github.com` entry in Keychain Access and update it before pushing again. I have also used `security delete-internet-password -s github.com` to clear an old credential. With multiple accounts, identify the right entry in Keychain first. The complete token is shown only once; store it and do not put it in the repo.
 
-Make sure both **Repo** and **Workflow** are checked.
+## 4. Use your own domain
 
-![](assets/index/file-20251229231053560-1789d775-a13d-4af1-96f5-e8fc5a8cd0b4.png)
+You now have a site at `https://<username>.github.io/Weisblog/`. Next, we will connect it to `blog.yungwei.com`, using **Was Wei weiß** as the site name. The address is a configuration example; substitute a domain you own.
 
-Then click `Generate token`, copy the token (**it will only be shown once**), and update your local Git credentials:
+> 👉 [Part 3: Namecheap registration, Cloudflare DNS, and a custom GitHub Pages domain](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-3/)
 
-```shell
-security delete-internet-password -s github.com
-git push # re-enter your GitHub username and the newly generated token
-```
+### What if I change hosting providers later?
 
----
-
-## 4. What If You Want to Use Your Own Domain?
-
-If you open this URL, https://brianee07.github.io/, you’ll notice that it redirects to https://weiweifan.com/.
-
-In the next article, I’ll explain how to **set up your own custom domain**.
-
-> 👉 [Hugo × GitHub Pages – Part 3: Custom Domains on GitHub Pages — Buying a Domain from Namecheap and DNS Configuration](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-3/)
-
----
-
-## FAQ (Method 2)
-
-### Q1: Why configure caches.images?
-
-```toml
-[caches]
-  [caches.images]
-    dir = ':cacheDir/images'
-```
-
-This is used to **cache Hugo’s image processing results**. When using functions like Resize, Fit, or Fill, images will be reprocessed on every build if caching is not enabled. It is recommended to configure this in CI environments (such as GitHub Actions); the impact on local builds is minimal.
-
-### Q2: Is it difficult to migrate to another hosting platform later?
-
-No. **Content and deployment are decoupled**. You don’t need to change your content—only the deployment method and DNS settings (if you use a custom domain).
-
-The deployment method can be changed to:
-
-- Modify GitHub Actions to deploy to a new platform.
-- Or use the hosting platform’s built-in build system and simply delete `.github/workflows/` to disable GitHub Actions.
+Keep the Markdown and images, then adjust the deployment workflow, `baseURL`, and DNS. If the new host builds the site itself, disable only this Pages workflow; do not delete the entire `.github/workflows/` directory, which may contain other jobs. If URLs or paths change too, old links need redirects and search indexing needs attention. Part 3 and Part 4 cover those next.

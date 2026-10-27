@@ -14,220 +14,168 @@ tags:
   - google_analytics
   - google_search_console
 ---
-> 上一篇文章中，我們把設定好了自己的網域名稱，有了專屬的網址。
-> 
-> 👉 [手把手自架個人網站｜Hugo × GitHub Pages – Part 3：GitHub Pages 自訂網域，從 Namecheap 購買自己的網路門牌與 DNS 設定教學](/posts/self-hosted-website-with-hugo-and-github-pages-part-3/)
-> 
-> 本篇將接著介紹為網站加分的功能，用 Google Analytics 追蹤靜態網站的流量，並且用 Google Search Console 協助 Google 快速且正確地收錄網站內容。
+> 前一篇把 GitHub Pages 接上自己的網域。
+>
+> 👉 [Part 3：Namecheap 註冊、Cloudflare DNS 與 GitHub Pages 自訂網域](/posts/self-hosted-website-with-hugo-and-github-pages-part-3/)
+>
+> 網站能打開之後，我還想知道有沒有人來看、大家從哪裡找到文章。這篇接著設定 Google Analytics 4（GA4）與 Google Search Console，範例網址統一用 `https://blog.yungwei.com/`，網站名稱是 Was Wei weiß。
 
-## 一、Google Analytics 追蹤流量與成效
+## 一、GA4：觀察流量與使用者行為
 
 ![](assets/index/file-20260110181515777-80042b3f-d98a-4067-8639-597c19106c40.png)
 
-Google Analytics（簡稱 GA）是 Google 提供的網站分析工具，可以用來追蹤網站的**流量來源、使用者行為與整體成效**。對於靜態網站來說，它是最基本且實用的流量觀察工具。
+GA4 可以看流量來源、瀏覽頁面與互動事件。先到 [Google Analytics](https://analytics.google.com/analytics/) 登入，找出自己要管理的網站。
 
-### 建立 Google Analytics（GA4）
+### 已經有 GA4，就先找既有 property 與 stream
 
-首先前往 [Google Analytics 頁面](https://analytics.google.com/analytics/)（需登入 Google 帳號）。
+網站換名字或網域時，先沿用這個網站既有的 property（資源）與 web data stream（網站資料串流），不要只因為名稱不同就另開一份，讓後續資料分散。
 
-建立帳戶時，**「帳戶名稱」** 可以隨便填：
+1. 在資源選單選對原本追蹤這個網站的 GA4 property。
+2. 到「管理」→「資料收集與修改」→「資料串流」，開啟既有的網站串流。
+3. 編輯串流詳細資料，網站網址使用 `https://blog.yungwei.com/`，串流名稱可改成 `Was Wei weiß`。
+4. 記下同一份串流的評估 ID（Measurement ID），格式是 `G-XXXXXXXXXX`；Hugo 也繼續使用這組 ID。
 
-![](assets/index/file-20260110150437305-de75f9fe-4cee-4446-ac0e-fdff171e3ae8.png)
+資源與串流名稱是辨識用的文字，真正接收事件的是安裝在網站上的 ID。改後台網址不會替網站自動裝好追蹤碼。串流修改位置可對照 [Google 官方說明](https://support.google.com/analytics/answer/9304776?hl=zh-Hant)。
 
-接著設定 **「屬性名稱」**，我這邊直接填寫網站的網域名稱：
+### 第一次使用，才建立新的資源與串流
 
-![](assets/index/file-20260105222320993-b8c5c9ee-3abb-44f0-ae4b-01cc5b021f72.png)
+如果原本完全沒有 GA4，照[首次設定流程](https://support.google.com/analytics/answer/9304153?hl=zh-Hant)建立帳戶、property，再新增 Web 串流。帳戶名稱可以自行取，時區與幣別依自己的報表需求填寫：
 
-其餘設定依照自己的實際情況填寫即可，平台選擇 **「網站」**：
+| 項目 | 本篇範例／填寫方式 |
+| --- | --- |
+| Property 名稱 | `Was Wei weiß`，或自己認得的網站名稱 |
+| 平台 | Web／網站 |
+| 網站網址 | `https://blog.yungwei.com/`；介面若將協定拆開，選 HTTPS，網址欄只填 `blog.yungwei.com` |
+| 串流名稱 | `Was Wei weiß` |
+| 評估 ID | 使用系統提供的 `G-...`，不要照抄文章的佔位值 |
 
-![](assets/index/file-20260105222339657-47516605-a135-4d89-aa05-18912e765572.png)
+我當初直接拿網站網域當 property 名稱，也可以；名稱不需要跟網址綁死。原本就有帳戶的話，也不用為了每個網站重建帳戶。
 
-**「網站網址」** 填入你的網站實際網址，**「串流名稱」** 同樣可以隨意填寫：
+## 二、把評估 ID 接到 Hugo
 
-![](assets/index/file-20260105222346201-a6b2d8c4-1c79-47dc-9a41-f397b28eca9a.png)
+以 Blowfish 為例，不需要自己改主題的 `<head>` 或再貼一份完整 GA script。在 `Weisblog/config/_default/hugo.toml` 設定：
 
-點擊右上角 **「建立並繼續」**，接著可能會跳出一段代碼，先不用理它。
-
-![](assets/index/file-20260110151957489-025f9669-f533-419b-b8c6-52417e3acc87.png)
-
-關閉代碼畫面後會跳出另一畫面，**真正重要的是右上角這組「評估 ID」**，格式會像這樣：
-
+```toml
+[services]
+  [services.googleAnalytics]
+    id = "G-XXXXXXXXXX"
 ```
-G-XXXXXXXXXX
-```
 
-![](assets/index/file-20260105222421003-dda13e25-772a-4e2b-9a10-90c15a822f69.png)
+將佔位值換成自己的評估 ID。若檔案已經有 `[services]` 或 `[services.googleAnalytics]`，就編輯原本的區段，不要重複宣告。設定名稱可對照 [Hugo services 文件](https://gohugo.io/configuration/services/)與 [Blowfish 設定說明](https://blowfish.page/docs/configuration/)。
 
-### 將 GA4 加入 Hugo 網站
+### 主題怎麼把設定變成追蹤碼？
 
-接下來要把這組 GA4 的評估 ID 加入 Hugo 網站中，為了：
+我當時檢查 Blowfish 的 `layouts/partials/head.html`，看到正式環境才載入分析功能：
 
-> 讓你的網站在每一次被瀏覽時，主動把「使用者行為資料」回傳給 Google Analytics 4。
-
-一般來說，你可以選擇手動插入剛剛那段 GA 程式碼，但**多數 Hugo 主題其實已經內建支援**。以我使用的 Blowfish 主題為例，GA 程式碼會自動插入在 `<head>` 中。
-
-回到 Hugo 專案 `mysite/`，可以看到 `themes/blowfish/layouts/partials/head.html` 裡面有：
-
-```html
+```go-html-template
 {{/* Analytics */}}
 {{ if hugo.IsProduction }}
-	{{ partial "analytics/main.html" . }}
+  {{ partial "analytics/main.html" . }}
 {{ end }}
 ```
 
-這裡的 `hugo.IsProduction` 表示：
+接著 `analytics/main.html` 會檢查是否有填 GA ID：
 
-- 使用 `hugo server` 本地預覽時**不會載入 GA**    
-- 避免本機測試行為污染正式的 GA 數據
-
-再往下查看 `partials/analytics/main.html` 會看到 GA 的判斷邏輯：
-
-```html
+```go-html-template
 {{ if site.Config.Services.GoogleAnalytics.ID }}
-	{{ partial "analytics/ga.html" . }}
+  {{ partial "analytics/ga.html" . }}
 {{ end }}
 ```
 
-再去看 `partials/analytics/ga.html`，就會發現實際的 GA 程式碼也早已寫好：
+`analytics/ga.html` 再將設定帶入 Google tag：
 
 ```html
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Config.Services.GoogleAnalytics.ID }}"></script>
 <script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', '{{ site.Config.Services.GoogleAnalytics.ID }}');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ site.Config.Services.GoogleAnalytics.ID }}');
 </script>
 ```
 
-所以講了這麼多，其實很簡單，我們**不需要改動主題檔案**，只要在自己可控的設定檔中填入 GA ID 即可。
+這些是主題原理的閱讀範例，**不用再貼進自己的文章或 layout**。主題版本更新時，檔案位置與內容可能調整，應以自己安裝版本為準。
 
-以 Blowfish 主題為例，請到 `config/_default/` 底下的設定檔 `hugo.toml`（注意不是 `themes/` 目錄）：
+一般的 `hugo server` 使用 development 環境；上面的正式環境判斷可避免本地預覽載入 GA。若自己指定 production 或另加了追蹤碼，本地測試仍可能送出事件。正式建置使用 production，發布前也要確認沒有把評估 ID 或追蹤功能關掉。
 
-找到以下設定，取消註解並填入剛剛的評估 ID：
-
-```toml
-# googleAnalytics = "G-XXXXXXXXX"
-```
-
-如果已經照[先前文章](/posts/self-hosted-website-with-hugo-and-github-pages-part-2/)設定好 GitHub Actions，這時只要推送到 GitHub，網站就會自動重新編譯跟部署：
+若已設定 Part 2 的 Actions，先預覽並核對這次提交的內容，再推送讓網站重新建置：
 
 ```shell
 git add .
-git commit -m "add google analytics"
+git commit -m "Configure Google Analytics"
 git push
 ```
 
-### 驗證 GA 是否成功載入
+### 驗證事件是否送到正確串流
 
-可以用以下方式確認 GA 是否正常運作：
+發布後，打開自己的正式網站，再回到同一個 GA4 property 的即時報表，觀察是否收到與測試時間相符的事件。必要時用 [Google Tag Assistant](https://tagassistant.google.com/) 核對 ID 與頁面網址，並留意是否重複安裝。
 
-1. 開啟 GA4 後台
-2. 同時打開你的網站
-3. 若看到 **「已啟用資料收集功能」** 且 **「過去活躍使用者人數」** 不再是 0，即代表設定成功（有時會延遲 1～2 分鐘）
+看到「已啟用資料收集」或活躍使用者大於 0，不能單獨證明新網域設定正確；那也可能是舊網址或其他頁面送來的資料。應把正確 ID、正式頁面和實際事件一起核對。阻擋追蹤的擴充套件、同意設定或報表延遲，也可能讓測試暫時看不到資料。
 
-![](assets/index/file-20260110155948391-926c2bd4-21b0-4f85-991d-3c99a7c0dae4.png)
-
----
-
-## 二、Google Search Console：「讓 Google 看到你的網頁」
+## 三、Search Console：檢查搜尋收錄
 
 ![](assets/index/file-20260110181658051-0179bb96-eeb5-4ca0-beb6-ddc12b16d2a8.png)
 
-Google Search Console 是 Google 提供的網站管理工具，可以用來告訴 Google：「這個網站是我的」，並協助 Google 更快、更正確地理解與收錄你的網站內容，是 SEO 中非常關鍵的一環。
+[Google Search Console](https://search.google.com/search-console/about) 用來查看搜尋曝光、點擊、索引狀態與網站問題。GA4 看使用者到站後的行為，Search Console 則能幫忙檢查 Google 搜尋這一端的狀況。
 
-> [!info]- SEO 是什麼？
-> SEO（Search Engine Optimization，搜尋引擎最佳化）是一系列優化網站內容與結構的方法，讓網站更容易被搜尋引擎理解與收錄，提升搜尋結果中的排名與曝光度。
+SEO 是搜尋引擎最佳化，讓內容與網站結構更容易被搜尋引擎理解；完成驗證並不保證排名或立即收錄。
 
-在設定之前，你可以先在 Google 搜尋：
+### 先檢查既有資源涵蓋哪裡
 
-```
-site:<你的網站網址>
-```
+Search Console 也先找既有資源，但它的邊界跟 GA4 不同。GA4 可以延用原串流追蹤搬站後的網站，Search Console 的資源則依網域或網址前綴決定範圍：
 
-像是：
+| 既有資源 | 是否涵蓋 `https://blog.yungwei.com/` |
+| --- | --- |
+| Domain 資源 `yungwei.com` | 包含它的子網域與不同協定，可繼續使用 |
+| Domain 資源 `blog.yungwei.com` | 包含這個子網域，可繼續使用 |
+| URL-prefix `https://blog.yungwei.com/` | 包含這個 HTTPS 前綴，可繼續使用 |
+| 其他網域，或 URL-prefix `https://yungwei.com/` | 不涵蓋這個部落格，需要適合新網址的資源 |
 
-![](assets/index/file-20260110160753881-08ce2c31-26a5-40bc-9725-11f25e559890.png)
+所以不用每次都重建資源，但也不能把「舊網域的資源」改個顯示名稱，就當成新網域已驗證。保留舊資源供查歷史資料，切換到涵蓋新網址的資源再操作。資源涵蓋規則見 [Google 官方說明](https://support.google.com/webmasters/answer/34592?hl=zh-Hant)。
 
-搜尋結果不一定會立刻出現你的網站，尤其是剛上線的新網站，Google 可能尚未完成收錄，其他人自然也**無法透過搜尋找到你的內容**。
+### 沒有合適資源時，再新增與驗證
 
-一般來說，網站上線後數小時到數天內可能就會被收錄；而透過 **Google Search Console**，可以主動告訴 Google 網站的存在，讓收錄流程更快也更可控。
+有 DNS 管理權限、想涵蓋整個網域時，新增 Domain 資源 `yungwei.com`，不含協定與路徑。若只想看部落格，也可以用 URL-prefix `https://blog.yungwei.com/`；仍使用 GitHub 預設 project site 的讀者，填 `https://<username>.github.io/Weisblog/`。
 
-### 建立 Google Search Console 資源
+我先前使用自訂網域時採用 DNS 驗證。以 `yungwei.com` 的 Domain 資源為例，複製 Google 提供的驗證字串，到 **Cloudflare 的 `yungwei.com` zone** 新增：
 
-前往 [Google Search Console](https://search.google.com/search-console/about)，點擊 **「立即開始」**。
+| 欄位 | 填寫內容 |
+| --- | --- |
+| Type | `TXT` |
+| Name | `@`，代表這次驗證的根網域 |
+| Content | Google 實際提供的 `google-site-verification=...` 全文 |
+| TTL | `Auto` |
 
-在新增資源時，有兩種選擇：
+如果建立的是 `blog.yungwei.com` 的 Domain 資源，DNS 名稱要依該驗證畫面的指示設在 `blog`，不要一律填 `@`。TXT 是驗證記錄，不能拿前一篇路由用的 CNAME 取代，也不要覆蓋既有的其他 TXT。
 
-- **網域**（左側）：若你有自訂網域，且可修改 DNS（例如 `weiweifan.com`），建議選這個
-- **網址前置字元**（右側）：若仍使用 `github.io` 網址，且無法自行修改 DNS，請選這個
+回到 Search Console 點驗證；若暫時失敗，先核對 TXT 所在的名稱與內容、權威 DNS 是否已是 Cloudflare，再等解析更新。驗證完成後保留記錄，Google 可能再次檢查。
 
-若選擇 **「網址前置字元」**，可以直接使用剛剛設定的 GA 驗證，快速通過驗證流程；而我因為使用的是自訂網域，所以選左側的 **「網域」**，並透過 DNS 驗證來完成設定。
+URL-prefix 可以使用 HTML tag、檔案或符合條件的 GA 等驗證方式；有 GA4 並不代表一定自動通過，仍須符合 Google 對帳號權限與追蹤碼的要求。依[擁有權驗證文件](https://support.google.com/webmasters/answer/9008080?hl=zh-Hant)選適合的方法即可。
 
-![](assets/index/file-20260110162042342-0793a88a-eaa0-472c-97bf-294a6c15b665.png)
+## 四、提交 sitemap，確認實際文章狀態
 
-### 驗證網站擁有權（DNS 驗證）
+Hugo 會產生 sitemap。一般可從網站根目錄的 `/sitemap.xml` 開始；多語網站可能是 sitemap index，再連到各語言的 sitemap。以本篇網址為例：
 
-選擇網域驗證後，Google 會提供一組 **TXT Record**，例如：
-
-![](assets/index/file-20260110163755417-89196275-f37a-45e0-88f9-683606122229.png)
-
-到域名供應商 **Namecheap** 的後台（`Account` → `Dashboard` → `Domain List` → `Advanced DNS`），用剛剛複製的內容，新增一筆 DNS 記錄：
-
-| **欄位** | **填寫內容**                        |
-| ------ | ------------------------------- |
-| Type   | TXT Record                      |
-| Host   | `@`                             |
-| Value  | `google-site-verification=xxxx` |
-| TTL    | Auto / 300                      |
-
-![](assets/index/file-20260110163612540-feafbe27-564a-4ab3-8046-0fdcc6d95939.png)
-
-儲存後，回到 Search Console 點擊 **「驗證」**。
-
-驗證通常只需幾秒到幾分鐘；若失敗，可能是 DNS 尚未生效，稍等一段時間再試即可。
-
-### 提交 sitemap.xml
-
-> [!info]+ 什麼是 sitemap.xml？
-> `sitemap.xml` 是一份提供給搜尋引擎的網站結構清單，例如：
-> 
-> 👉 https://weiweifan.com/sitemap.xml
-> 
-> Hugo 會自動產生這個檔案，通常位於 `public/sitmap.xml`，而我們把這份 sitemap 主動提交給 Google，讓搜尋引擎更快理解整個網站的內容。
-
-驗證完成後，點擊「前往資源」：
-
-![](assets/index/file-20260110164300588-471e76c0-04a3-46e9-8fa4-ab7c943ef680.png)
-
-1. 左側選單 → **Sitemap**
-2. 新增 Sitemap：通常在 `<你的網站網址>/sitemap.xml`
-3. 點擊**提交**
-
-![](assets/index/file-20260110165207540-e1fe56ea-0ee8-475d-a086-901e9b9cbfe4.png)
-
-![](assets/index/file-20260110165920350-5f10231e-2ff6-4a6b-bc6f-571ef37f1f49.png)
-
-之後再回到 Google 搜尋：
-
-```
-site:<你的網站網址>
+```text
+https://blog.yungwei.com/sitemap.xml
 ```
 
-可以看到網站已被正確收錄，而不是讓 Google 自行「大海撈針」。
+先用瀏覽器打開它，確認不是 404，也確認裡面的網址都使用正式網域。若本地正式編譯，對應輸出是 `public/sitemap.xml`；`baseURL` 設錯時，清單裡的網址也可能跟著錯。
 
-![](assets/index/file-20260110170132052-c6642cdc-1f78-475c-bf2e-957224183b9b.png)
+到涵蓋新網址的 Search Console 資源，開啟「Sitemap」，填入完整 sitemap 網址並提交。看後續讀取狀態與錯誤，多語的子 sitemap 也要能正常讀取。
 
-實際文章的收錄仍可能需要一些時間，這屬於正常現象。你也可以透過 **「網址審查」** 功能主動要求建立索引；不過只要 sitemap 設定正常，多數內容都會隨時間自然被收錄。
+Google 說明 [sitemap 有助於發現網址，但不保證抓取或建立索引](https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview)。提交成功表示 Google 能處理這份清單，不能直接當成每篇文章都已收錄。
 
-![](assets/index/file-20260110171334688-507addf1-cd04-490c-b7ae-acc09b889847.png)
+想檢查特定文章時，使用「網址審查」貼入正式文章網址，查看 Google 已知的索引狀態；需要時可測試線上網址、要求建立索引。剛上線的內容可能要等一段時間，沒有固定完成期限。
 
----
+你也可以在 Google 試搜：
 
-## 三、結語
+```text
+site:blog.yungwei.com
+```
 
-到這裡為止，網站的基本設定其實已經差不多完成了。
+這能快速看看有哪些結果，但不是完整的收錄清單。是否收錄某篇文章，仍回 Search Console 看該網址的檢查結果。
 
-從**架站、部署、自訂網域，到流量追蹤與搜尋引擎收錄**，整個靜態網站最核心的一條流程都已經跑過一遍。
+如果正在換網域，除了新資源與 sitemap，也要保留舊資源、檢查舊文到新文的一對一轉址，以及 canonical、內部連結是否都使用新網址；符合條件時再依 [Google 搬站指南](https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes)使用地址變更工具。不要把刪掉舊資源當作搬站步驟。
 
-接下來，我將針對 Blowfish 主題進一步帶你優化介面排版，並介紹 Hugo 的一些進階使用方式。
+到這裡，從 Hugo 本地建站、GitHub Pages 部署、自訂網域，到流量與搜尋收錄的基本設定，就都有做法可循了。接下來我會繼續介紹 Blowfish 的介面排版與 Hugo 的進階用法。

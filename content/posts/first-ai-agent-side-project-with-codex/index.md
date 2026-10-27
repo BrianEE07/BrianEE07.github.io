@@ -1,7 +1,7 @@
 ---
 title: 用 Codex 做出我的投資儀表板：AI Agent 實作專案的初體驗與心得
 date: 2026-05-03T22:47:26+08:00
-draft: false
+draft: true
 aliases:
   - 用 Codex 做出我的投資儀表板：AI Agent 實作專案的初體驗與心得
 description: 簡單記錄我第一次用 OpenAI Codex 做 side project 的過程。從一個投資網站原型出發，靠 AI Agent 幫我讀 code、拆需求、改功能，也整理一些我目前使用下來覺得比較有幫助的協作方式。

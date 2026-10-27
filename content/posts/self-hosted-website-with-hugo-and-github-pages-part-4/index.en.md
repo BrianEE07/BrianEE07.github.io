@@ -4,7 +4,7 @@ date: 2026-01-10T14:53:44+08:00
 draft: false
 aliases:
   - "Hugo × GitHub Pages – Part 4: Google Analytics and Search Console for Traffic Tracking and Indexing"
-description: A step-by-step guide to setting up Google Analytics and Google Search Console for a Hugo static website, helping you track traffic, analyze user behavior, and ensure proper indexing by Google.
+description: A step-by-step guide to setting up Google Analytics and Google Search Console for a Hugo static website, helping you track traffic, analyze user behavior, and check indexing by Google.
 slug: self-hosted-website-with-hugo-and-github-pages-part-4
 categories: hugo-self-hosted-website
 tags:
@@ -14,220 +14,168 @@ tags:
   - google_analytics
   - google_search_console
 ---
-> In the previous article, we finished setting up our own domain name and obtained a dedicated URL for the website.
-> 
-> 👉 [Hugo × GitHub Pages – Part 3: Custom Domains on GitHub Pages — Buying a Domain from Namecheap and DNS Configuration](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-3/)
-> 
-> In this article, we’ll continue by adding features that enhance the value of the website: using Google Analytics to track traffic on a static site, and using Google Search Console to help Google index the site more quickly and accurately.
+> In Part 3, we connected GitHub Pages to our own domain.
+>
+> 👉 [Part 3: Namecheap registration, Cloudflare DNS, and a custom GitHub Pages domain](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-3/)
+>
+> Once the site is online, I also want to know whether people are reading it and where they find the posts. Here we will set up Google Analytics 4 (GA4) and Google Search Console, using `https://blog.yungwei.com/` and the site name Was Wei weiß throughout.
 
-## 1. Google Analytics: Tracking Traffic and Performance
+## 1. GA4: Traffic and user behavior
 
 ![](assets/index/file-20260110181515777-80042b3f-d98a-4067-8639-597c19106c40.png)
 
-Google Analytics (GA) is a website analytics tool provided by Google. It allows you to track **traffic sources, user behavior, and overall performance**. For static websites, it is one of the most basic and practical tools for understanding how your site is being used.
+GA4 helps you examine traffic sources, page views, and interaction events. Sign in to [Google Analytics](https://analytics.google.com/analytics/) and find the site you intend to manage.
 
-### Creating Google Analytics (GA4)
+### If you already have GA4, find the existing property and stream
 
-First, go to the [Google Analytics page](https://analytics.google.com/analytics/) (you’ll need to sign in with a Google account).
+When the same site changes its name or domain, start with its existing property and web data stream. Do not create another set merely because the name changed and split future data across properties.
 
-When creating an account, the **Account name** can be anything you like:
+1. Select the GA4 property that already tracks this website.
+2. Open Admin → Data collection and modification → Data streams, then select the existing web stream.
+3. Edit its details, using `https://blog.yungwei.com/` as the website URL. You can rename the stream to `Was Wei weiß`.
+4. Keep the Measurement ID from that same stream, in the form `G-XXXXXXXXXX`, and continue using it in Hugo.
 
-![](assets/index/file-20260110150437305-de75f9fe-4cee-4446-ac0e-fdff171e3ae8.png)
+Property and stream names are labels. The installed ID determines where events are sent. Updating the URL in Admin does not install tracking on the website. See [Google’s stream editing instructions](https://support.google.com/analytics/answer/9304776?hl=en).
 
-Next, set the **Property name**. Here, I simply used the website’s domain name:
+### Create a property and stream only for a first-time setup
 
-![](assets/index/file-20260105222320993-b8c5c9ee-3abb-44f0-ae4b-01cc5b021f72.png)
+If you have no GA4 setup, follow the [initial setup instructions](https://support.google.com/analytics/answer/9304153?hl=en): create an account and property, then add a Web stream. Choose an account name and set the reporting time zone and currency to fit your needs.
 
-Fill in the remaining settings according to your own situation, and choose **Web** as the platform:
+| Field | Example or value |
+| --- | --- |
+| Property name | `Was Wei weiß`, or a name you recognize |
+| Platform | Web |
+| Website URL | `https://blog.yungwei.com/`; if the protocol is a separate field, select HTTPS and enter only `blog.yungwei.com` in the URL field |
+| Stream name | `Was Wei weiß` |
+| Measurement ID | Use the generated `G-...` value, not this article’s placeholder |
 
-![](assets/index/file-20260105222339657-47516605-a135-4d89-aa05-18912e765572.png)
+I originally used the site’s domain as its property name, which also works. The label does not have to stay tied to the URL. If you already have an account, you do not need a new one for every website either.
 
-For the **Website URL**, enter your actual site URL. The **Stream name** can also be filled in freely:
+## 2. Add the Measurement ID to Hugo
 
-![](assets/index/file-20260105222346201-a6b2d8c4-1c79-47dc-9a41-f397b28eca9a.png)
+With Blowfish, you do not need to edit the theme’s `<head>` or paste a second complete GA script. Configure `Weisblog/config/_default/hugo.toml`:
 
-Click **Create and continue** in the top-right corner. You may see a code snippet appear—this can be ignored for now.
-
-![](assets/index/file-20260110151957489-025f9669-f533-419b-b8c6-52417e3acc87.png)
-
-After closing the code screen, you’ll see another page. **What really matters is the “Measurement ID” shown in the top-right corner**, which looks like this:
-
+```toml
+[services]
+  [services.googleAnalytics]
+    id = "G-XXXXXXXXXX"
 ```
-G-XXXXXXXXXX
-```
 
-![](assets/index/file-20260105222421003-dda13e25-772a-4e2b-9a10-90c15a822f69.png)
+Replace the placeholder with your own ID. If `[services]` or `[services.googleAnalytics]` already exists, edit that section rather than declaring it twice. Refer to [Hugo’s services configuration](https://gohugo.io/configuration/services/) and [Blowfish’s configuration guide](https://blowfish.page/docs/configuration/).
 
-### Adding GA4 to a Hugo Website
+### How does the theme turn that setting into tracking code?
 
-Next, we need to add this GA4 Measurement ID to the Hugo site, so that:
+When I inspected the Blowfish version I was using, its `layouts/partials/head.html` loaded analytics only in production:
 
-> Every time your site is visited, user behavior data is actively sent to Google Analytics 4.
-
-In general, you could manually insert the GA script shown earlier. However, **most Hugo themes already support Google Analytics out of the box**. Using the Blowfish theme as an example, the GA script is automatically inserted into the `<head>` section.
-
-In your Hugo project `mysite/`, you can find the following in `themes/blowfish/layouts/partials/head.html`:
-
-```html
+```go-html-template
 {{/* Analytics */}}
 {{ if hugo.IsProduction }}
-	{{ partial "analytics/main.html" . }}
+  {{ partial "analytics/main.html" . }}
 {{ end }}
 ```
 
-Here, `hugo.IsProduction` means:
+Then `analytics/main.html` checked for the GA ID:
 
-- Google Analytics is **not loaded** when running `hugo server` locally
-- This prevents local testing activity from polluting real GA data
-
-Looking further into `partials/analytics/main.html`, you’ll see the logic that enables GA:
-
-```html
+```go-html-template
 {{ if site.Config.Services.GoogleAnalytics.ID }}
-	{{ partial "analytics/ga.html" . }}
+  {{ partial "analytics/ga.html" . }}
 {{ end }}
 ```
 
-And inside `partials/analytics/ga.html`, the actual GA script is already defined:
+Finally, `analytics/ga.html` inserted the configured ID into the Google tag:
 
 ```html
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Config.Services.GoogleAnalytics.ID }}"></script>
 <script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', '{{ site.Config.Services.GoogleAnalytics.ID }}');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ site.Config.Services.GoogleAnalytics.ID }}');
 </script>
 ```
 
-So after all that, the setup is actually very simple. **We don’t need to modify any theme files**—we just need to provide the GA ID in a configuration file that we control.
+These snippets explain the theme’s behavior. **Do not paste them into your post or layout again.** File locations and contents can change between theme versions; use the version you have installed as the reference.
 
-With the Blowfish theme, go to the configuration file `hugo.toml` under `config/_default/` (note: not under the `themes/`directory).
+Ordinary `hugo server` uses the development environment. The production check above prevents GA from loading in that local preview. Explicitly choosing production or adding another tracking snippet can still send test events. Production builds use the production environment; before publishing, check that the ID and tracking have not been disabled.
 
-Find the following setting, uncomment it, and replace it with your Measurement ID:
-
-```toml
-# googleAnalytics = "G-XXXXXXXXX"
-```
-
-If you’ve already set up GitHub Actions as described in the [previous article](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-2/), you can now simply push the changes to GitHub and the site will be rebuilt and deployed automatically:
+If you use the Actions workflow from Part 2, preview and review the changes, then push to rebuild the site:
 
 ```shell
 git add .
-git commit -m "add google analytics"
+git commit -m "Configure Google Analytics"
 git push
 ```
 
-### Verifying That GA Is Working
+### Verify that events reach the correct stream
 
-You can confirm that Google Analytics is working by following these steps:
+After publishing, open your production website and watch the same GA4 property’s Realtime report for events matching your test time. If needed, use [Google Tag Assistant](https://tagassistant.google.com/) to check the ID and page URL, including whether tracking was installed twice.
 
-1. Open the GA4 dashboard
-2. Open your website in a browser at the same time
-3. If you see that **Data collection is enabled** and the **Active users** count is no longer zero, the setup is successful (there may be a 1–2 minute delay)
+A “data collection enabled” message or a nonzero active-user count alone does not prove the new domain is configured correctly. Those events could come from an old URL or another page. Check the ID, production page, and actual events together. Tracking blockers, consent settings, and reporting delays can also affect whether you see a test immediately.
 
-![](assets/index/file-20260110155948391-926c2bd4-21b0-4f85-991d-3c99a7c0dae4.png)
-
----
-
-## 2. Google Search Console: “Let Google See Your Website”
+## 3. Search Console: Search indexing
 
 ![](assets/index/file-20260110181658051-0179bb96-eeb5-4ca0-beb6-ddc12b16d2a8.png)
 
-Google Search Console is a website management tool provided by Google. It allows you to tell Google, “This website belongs to me,” and helps Google understand and index your site content more quickly and accurately. It is a critical part of SEO.
+[Google Search Console](https://search.google.com/search-console/about) shows search impressions, clicks, index status, and website issues. GA4 covers behavior after visitors arrive, while Search Console helps examine the Google Search side.
 
-> [!info]- What is SEO?
-> SEO (Search Engine Optimization) refers to a set of techniques used to optimize a website’s content and structure so that search engines can better understand and index it, improving its ranking and visibility in search results.
+SEO means search engine optimization: making content and site structure easier for search engines to understand. Ownership verification does not guarantee rankings or immediate indexing.
 
-Before setting it up, you can try searching on Google:
+### Check what your existing property covers
 
-```
-site:<your-website-url>
-```
+Start with existing Search Console properties too, but their scope differs from GA4. GA4 can keep tracking the moved site through the original stream; Search Console properties cover a defined domain or URL prefix.
 
-For example:
+| Existing property | Does it cover `https://blog.yungwei.com/`? |
+| --- | --- |
+| Domain property `yungwei.com` | Yes, including its subdomains and protocols |
+| Domain property `blog.yungwei.com` | Yes, it covers this subdomain |
+| URL-prefix `https://blog.yungwei.com/` | Yes, it covers this HTTPS prefix |
+| Another domain, or URL-prefix `https://yungwei.com/` | No; use a property that covers the blog’s new URL |
 
-![](assets/index/file-20260110160753881-08ce2c31-26a5-40bc-9725-11f25e559890.png)
+You do not need to recreate properties every time, but renaming an old domain’s property does not verify a new domain. Keep old properties for their history, and switch to a property covering the new URL for the following steps. See [Google’s property scope rules](https://support.google.com/webmasters/answer/34592?hl=en).
 
-The result may not show your site immediately—especially for a newly launched website. In that case, others also **won’t be able to find your content via Google search**.
+### Add and verify a property when none fits
 
-Typically, a site may be indexed within a few hours to a few days after launch. By using **Google Search Console**, you can proactively notify Google about your site’s existence and make the indexing process faster and more predictable.
+If you manage DNS and want coverage for the whole domain, add a Domain property for `yungwei.com`, without a protocol or path. To focus on the blog alone, you can use URL-prefix `https://blog.yungwei.com/`. If you still use the default project site, enter `https://<username>.github.io/Weisblog/` instead.
 
-### Creating a Google Search Console Property
+I previously chose DNS verification for my custom domain. For a Domain property covering `yungwei.com`, copy the verification value provided by Google and add it in **Cloudflare’s `yungwei.com` zone**:
 
-Go to the [Google Search Console](https://search.google.com/search-console/about) page and click **Start now**.
+| Field | Value |
+| --- | --- |
+| Type | `TXT` |
+| Name | `@`, the apex domain being verified here |
+| Content | The complete `google-site-verification=...` value provided by Google |
+| TTL | `Auto` |
 
-When adding a property, you’ll see two options:
+If the Domain property is instead `blog.yungwei.com`, follow its verification instructions and place the record at `blog`, rather than always entering `@`. This TXT record verifies ownership; the routing CNAME from Part 3 cannot replace it. Do not overwrite other TXT records.
 
-- **Domain** (left): Recommended if you use a custom domain and can modify DNS records (e.g., `weiweifan.com`)
-- **URL prefix** (right): Use this if you’re still using a `github.io` URL and cannot modify DNS
+Return to Search Console and verify. If it fails initially, check the TXT name and content and confirm Cloudflare is the authoritative DNS provider before waiting for propagation. Keep the verification record afterward; Google may check it again.
 
-If you choose **URL prefix**, you can verify ownership quickly using the GA setup from earlier. In my case, since I use a custom domain, I selected **Domain** and completed verification via DNS.
+URL-prefix properties can use an HTML tag, file, or eligible GA verification, among other methods. Having GA4 does not automatically guarantee verification; the account permissions and tag must meet Google’s requirements. Choose an appropriate method from [Google’s ownership verification guide](https://support.google.com/webmasters/answer/9008080?hl=en).
 
-![](assets/index/file-20260110162042342-0793a88a-eaa0-472c-97bf-294a6c15b665.png)
+## 4. Submit the sitemap and inspect individual posts
 
-### Verifying Site Ownership (DNS Verification)
+Hugo generates sitemaps. Start with `/sitemap.xml` at the site root. A multilingual site may have a sitemap index linking to each language’s sitemap. For this example:
 
-After choosing domain verification, Google will provide a **TXT Record**, for example:
-
-![](assets/index/file-20260110163755417-89196275-f37a-45e0-88f9-683606122229.png)
-
-Go to the **Namecheap** domain management dashboard (`Account` → `Dashboard` → `Domain List` → `Advanced DNS`), and use the content you just copied to add a new DNS record:
-
-| Field | Value                           |
-| ----- | ------------------------------- |
-| Type  | TXT Record                      |
-| Host  | `@`                             |
-| Value | `google-site-verification=xxxx` |
-| TTL   | Auto / 300                      |
-
-![](assets/index/file-20260110163612540-feafbe27-564a-4ab3-8046-0fdcc6d95939.png)
-
-After saving the record, return to Search Console and click **Verify**.
-
-Verification usually takes a few seconds to a few minutes. If it fails, the DNS record may not have propagated yet—wait a bit and try again.
-
-### Submitting sitemap.xml
-
-> [!info]+ What is sitemap.xml? 
-> `sitemap.xml` is a structured list of your website’s pages provided for search engines. For example:
-> 
-> 👉 https://weiweifan.com/sitemap.xml
-> 
-> Hugo generates this file automatically, usually under `public/sitemap.xml`. By submitting it to Google, you help search engines understand your site structure more quickly.
-
-Once verification is complete, click **Go to property**:
-
-![](assets/index/file-20260110164300588-471e76c0-04a3-46e9-8fa4-ab7c943ef680.png)
-
-1. In the left menu, select **Sitemap**
-2. Add a new sitemap: usually at `<your-website-url>/sitemap.xml`)
-3. Click **Submit**
-
-![](assets/index/file-20260110165207540-e1fe56ea-0ee8-475d-a086-901e9b9cbfe4.png)
-
-![](assets/index/file-20260110165920350-5f10231e-2ff6-4a6b-bc6f-571ef37f1f49.png)
-
-After that, search again on Google:
-
-```
-site:<your-website-url>
+```text
+https://blog.yungwei.com/sitemap.xml
 ```
 
-You should now see your site being indexed properly, rather than leaving Google to “search blindly.”
+Open it in a browser first. Confirm it does not return 404 and that its URLs use the production domain. A local production build writes the corresponding `public/sitemap.xml`; an incorrect `baseURL` can also produce incorrect URLs in the sitemap.
 
-![](assets/index/file-20260110170132052-c6642cdc-1f78-475c-bf2e-957224183b9b.png)
+In the Search Console property covering the new URL, open Sitemaps and submit the complete sitemap URL. Check its later fetch status and errors; any language-specific child sitemaps must be accessible too.
 
-It may still take some time for individual articles to appear in search results—this is normal. You can also use the **URL Inspection** tool to request indexing manually. However, as long as your sitemap is configured correctly, most content will be indexed naturally over time.
+Google explains that [sitemaps help discover URLs but do not guarantee crawling or indexing](https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview). A successful submission means Google can process the list, not that every article is already indexed.
 
-![](assets/index/file-20260110171334688-507addf1-cd04-490c-b7ae-acc09b889847.png)
+To inspect an individual post, paste its production URL into URL Inspection and review Google’s known index status. You can test the live URL and request indexing when needed. New content may take time, without a fixed completion deadline.
 
----
+You can also try searching Google for:
 
-## 3. Conclusion
+```text
+site:blog.yungwei.com
+```
 
-At this point, the basic setup of the website is essentially complete.
+That is a quick look at some results, not a complete index inventory. Use URL Inspection to examine a particular article.
 
-From **site creation, deployment, and custom domains to traffic tracking and search engine indexing**, we’ve now walked through the core workflow of a static website from start to finish.
+If you are changing domains, also retain the old property, check one-to-one redirects from old posts to new posts, and update canonical URLs and internal links. Use the Change of Address tool when eligible, following [Google’s site-move guide](https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes). Deleting the old property is not a migration step.
 
-Next, we’ll take a closer look at the Blowfish theme, focusing on interface layout optimizations and introducing more advanced ways to use Hugo.
+We now have instructions for the basic workflow: building locally with Hugo, deploying through GitHub Pages, adding a custom domain, and setting up traffic measurement and search indexing. Next, I will continue with Blowfish layout customization and more advanced Hugo usage.

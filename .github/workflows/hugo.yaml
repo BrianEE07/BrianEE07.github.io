@@ -79,6 +79,12 @@ jobs:
             hugo-
       - name: Build the site
         run: |
+          expected_base_url="https://blog.yungwei.com"
+          actual_base_url="${{ steps.pages.outputs.base_url }}"
+          if [[ "${actual_base_url%/}" != "$expected_base_url" ]]; then
+            echo "Pages base_url does not match approved blog domain; stop before build." >&2
+            exit 1
+          fi
           hugo \
             --gc \
             --minify \

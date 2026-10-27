@@ -44,7 +44,7 @@ Markdown 文章 + 主題(theme) + 設定檔
 
 Hugo 最大的特色在於：**快、單純、而且不依賴龐大的前端生態系**。
 
-它是一個單一執行檔的工具，不需要 Node.js、不需要安裝一堆套件，只要把內容與設定準備好，就能快速產生整個網站。
+Hugo 本身是一個單一執行檔，不需要 Node.js 就能執行；主題若另外使用 npm、Go modules 或 Sass 工具，再依主題文件安裝。把內容與設定準備好，就能快速產生整個網站。
 
 相較於 [Hexo](https://hexo.io/zh-tw/) 或 [Jekyll](https://jekyllrb.com/) 這類需要額外執行環境的工具，Hugo 在安裝與維護上更單純，也幾乎沒有套件相依問題。
 
@@ -63,10 +63,10 @@ Hugo 最大的特色在於：**快、單純、而且不依賴龐大的前端生�
 brew update && brew upgrade && brew cleanup
 ```
 
-若沒有 [Git](https://git-scm.com/install/mac) 也要裝一下（但如果沒用過 Git 之後可能會比較辛苦 QQ）：
+接著安裝 [Git](https://git-scm.com/install/mac) 與 Go，供版本控制與主題可能使用的 modules 使用（如果沒用過 Git，之後可能會比較辛苦 QQ）：
 
 ```shell
-brew install git
+brew install git go
 ```
 
 安裝 Hugo：
@@ -75,7 +75,7 @@ brew install git
 brew install hugo
 ```
 
-輸入 `hugo version` 查看版本，看到版本資訊即成功安裝：
+輸入 `hugo version` 查看版本。筆者當初看到的輸出如下，這是舊版本示例；現在照著安裝最新版 Blowfish 時，請先核對[安裝文件](https://blowfish.page/docs/installation/)的最低需求（目前為 Hugo 0.162.0），不要把下方的舊版號當作安裝目標：
 
 ```shell
 hugo version
@@ -87,17 +87,19 @@ hugo v0.152.2+extended+withdeploy darwin/arm64 BuildDate=2025-10-24T15:31:49Z Ve
 
 ### (2) 建立 Hugo 專案
 
-輸入創建專案指令 `hugo new site <專案名稱>`：
+這個系列統一用 `Weisblog` 當作本地專案資料夾與之後的 GitHub Repo 名稱，網站名稱則是 **Was Wei weiß**。你可以換成自己的名字，但後面的路徑也要一起對應。
+
+輸入建立專案指令 `hugo new site <專案名稱>`：
 
 ```shell
-hugo new site mysite
-cd mysite
+hugo new site Weisblog
+cd Weisblog
 ```
 
 會發現資料夾結構如下：
 
 ```shell
-mysite/
+Weisblog/
 |--- archetypes/
 |--- assets/
 |--- content/  # 存放頁面、文章 Markdown 檔案
@@ -126,7 +128,7 @@ mysite/
 
 以下用 Blowfish 為例，不同主題安裝教學大同小異，但仍建議去主題官方查看步驟，像是 [Blowfish Installation Guide](https://blowfish.page/docs/installation/) 就寫得蠻清楚。
 
-在剛剛建立的 `mysite/` 底下：
+在剛剛建立的 `Weisblog/` 底下：
 
 ```shell
 git init
@@ -146,8 +148,16 @@ cp -r themes/blowfish/config config
 會多一個複製過來的 `config/` 路徑，接著要初步編輯 `config/_default/hugo.toml`，將下面那一行取消註解。（注意**不是** `theme/blowfish/config/_default/` 底下的喔）
 
 ```shell
-theme = "blowfish" # UNCOMMENT THIS LINE`
+theme = "blowfish"
 ```
+
+接著開啟複製到專案裡的 `config/_default/languages.en.toml`，把既有的 `title` 改成網站名稱；若有其他啟用的語言檔，也各自檢查一次，避免保留範例主題的名稱。
+
+```toml
+title = "Was Wei weiß"
+```
+
+底下的本地預覽截圖是 Blowfish 預設範例，畫面上的標題會隨你的設定改變。
 
 #### 新增文章
 
@@ -190,7 +200,7 @@ This is my first post.
 hugo server -D
 ```
 
-**產生的 `public/` 就是一整包靜態網站！**
+`hugo server` 用來即時預覽；正式執行 `hugo` 時，輸出到 `public/` 的才是接下來要部署的整包靜態網站。
 
 依照輸出的提示，在瀏覽器上輸入 `localhost` 網址，通常是 `http://localhost:1313/`，就會看到很陽春的頁面：
 

@@ -1,10 +1,10 @@
 ---
-title: "Hugo × GitHub Pages – Part 3: Custom Domains on GitHub Pages — Buying a Domain from Namecheap and DNS Configuration"
+title: "Hugo × GitHub Pages – Part 3: Namecheap, Cloudflare DNS, and a Custom GitHub Pages Domain"
 date: 2025-12-30T21:39:31+08:00
 draft: false
 aliases:
   - "Hugo × GitHub Pages – Part 3: Custom Domains on GitHub Pages — Buying a Domain from Namecheap and DNS Configuration"
-description: A practical guide to domain names and DNS, showing how to buy a domain from Namecheap and configure a custom domain with HTTPS on GitHub Pages for a Hugo static website.
+description: A practical guide to Namecheap registration, Cloudflare DNS, and a custom domain with HTTPS for the Weisblog project site on GitHub Pages.
 slug: self-hosted-website-with-hugo-and-github-pages-part-3
 categories: hugo-self-hosted-website
 tags:
@@ -13,177 +13,140 @@ tags:
   - personal_website
   - domain_name
 ---
-> In the previous article, we placed our website content—the “house”—on the “land” provided by GitHub Pages.
-> 
-> 👉 [Hugo × GitHub Pages – Part 2: First Deployment with GitHub Actions](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-2/)
-> 
-> In this article, we’ll go a step further by introducing the basics of domain names, how to purchase your own domain, and how to configure a custom domain for GitHub Pages.
+> In Part 2, we put our website, the “house,” on GitHub Pages, the “land.”
+>
+> 👉 [Part 2: First deployment with GitHub Actions](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-2/)
+>
+> Now we will give it an address: register a domain with Namecheap, let Cloudflare manage DNS, and connect the `Weisblog` project site to `blog.yungwei.com`.
 
-## 1. What Is a Domain Name?
+## 1. What do domains, DNS, and hosting each do?
 
-If we compare a website to a house, **then a domain name is like your home address**.
+A domain name is like a street address: people can find your website without remembering an IP address. DNS resolves where that name points, while hosting provides the actual website files.
 
-Its purpose is to replace hard-to-remember IP addresses with something more human-friendly, so users can find your website (house) more easily.
+Here is the setup for this guide:
 
-For example, computers communicate using IP addresses (such as `142.250.72.206`), which are not intuitive for humans. That’s why domain names like `example.com` exist.
+| Service | Responsibility | Example |
+| --- | --- | --- |
+| Namecheap | Domain registration, renewal, and nameserver settings | Own `yungwei.com` |
+| Cloudflare | Authoritative DNS and its records | Create the `blog` CNAME |
+| GitHub Pages | Website files and HTTPS | Publish the `Weisblog` repo |
+| Hugo | Generate the site and content URLs | Set the production `baseURL` |
 
-The **DNS (Domain Name System)** mentioned later is responsible for the following task:
+The registrar and DNS provider can be different services. Renewing a domain at Namecheap does not mean its DNS records must be edited there.
 
-> Converting the domain name you enter into an IP address that computers can actually understand.
+### Domain hierarchy
 
-Before configuring a custom domain, a website hosted on GitHub Pages will have a default URL like this:
+| Level | Example | Purpose |
+| --- | --- | --- |
+| Top-level domain (TLD) | `.com`, `.io`, `.org`, `.tw` | The rightmost label |
+| Registered domain in this example | `yungwei.com` | The name you register and renew; `yungwei` is the second-level label |
+| Subdomain | `blog.yungwei.com` | Separate services under the same domain |
 
+You register `yungwei.com` and can add `blog` yourself, without buying another domain. We will configure only `blog.yungwei.com`. The apex `yungwei.com` and other subdomains can serve different purposes.
+
+The project site from Part 2 defaults to `https://<username>.github.io/Weisblog/`. With a custom domain, visitors use `https://blog.yungwei.com/`, without `/Weisblog/`.
+
+For me, the value of a custom domain is keeping control of the address I share. I can keep it if I change hosting providers. Preserving search performance also depends on page paths, redirects, and content; buying a domain alone does not guarantee rankings.
+
+## 2. Register a domain with Namecheap
+
+This part costs a little, but I think a nice address is worth it. Prices vary by extension, first-year offer, and renewal rate. Check the renewal price before paying, not just the introductory offer.
+
+Search for your preferred domain on [Namecheap](https://www.namecheap.com/). You can also compare registrars such as [GoDaddy](https://www.godaddy.com/en) and [Gandi](https://www.gandi.net/en-US). `yungwei.com` is my configuration example; use a name you own or can register.
+
+1. Check availability and add the name to your cart. Skip registration if you already own it.
+2. Review the first-year and renewal prices, term, and privacy options you need.
+3. You can enable Auto-renew and keep a valid payment method. Still keep track of the expiration date.
+4. This GitHub Pages setup does not need an additional hosting package or SSL certificate; Pages provides HTTPS.
+5. Keep the order confirmation and complete any contact-verification email required by the registrar.
+
+“SSL certificate” remains a common label. Modern HTTPS uses TLS encryption to protect traffic between the browser and website.
+
+## 3. Let Cloudflare manage DNS
+
+If Cloudflare already manages your domain and its zone is Active, skip to the next section. **Do not reset its nameservers just to repeat the tutorial.**
+
+For a new setup:
+
+1. Sign in to [Cloudflare](https://dash.cloudflare.com/), add the whole `yungwei.com` zone, and choose a suitable plan. Add the apex domain here, not just `blog.yungwei.com`.
+2. Review the scanned or imported records. Preserve existing sites, email MX/TXT records, and other subdomains; the automatic scan may miss records.
+3. Note the two nameservers assigned to this zone. They can differ between domains, so do not copy someone else’s values.
+4. In Namecheap, open `Domain List` → your domain’s `Manage` → `Nameservers`. Select **Custom DNS**, enter those Cloudflare nameservers, and save.
+5. Wait for Cloudflare to show Active, then manage records in the zone’s `DNS` → `Records`.
+
+If DNSSEC is already enabled, follow [Cloudflare’s full setup instructions](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) to handle the old DS record before switching nameservers, then configure the new DNSSEC setup afterward. An old DS record that does not match the new DNS can prevent the entire domain from resolving. See [Namecheap’s nameserver instructions](https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-to-change-dns-for-a-domain/) for its interface.
+
+Afterward, Namecheap handles registration and renewal, while DNS changes belong in Cloudflare. Namecheap’s `Advanced DNS` is no longer the active place to edit this domain’s records.
+
+## 4. Add the custom domain in GitHub Pages first
+
+Open the **`Weisblog` repo** on GitHub → `Settings` → `Pages`. Enter this under Custom domain:
+
+```text
+blog.yungwei.com
 ```
-https://<username>.github.io
-```
 
-As soon as you see this URL, you know the site is hosted on GitHub Pages.
+Enter only the hostname, without `https://` or `/Weisblog/`. Save it. A pending DNS check is expected at this point because we have not created the record yet. GitHub recommends adding the domain in Pages before pointing DNS to it. You can also [verify ownership at the account level](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages) first; that is separate from routing the site below.
 
-Once you have your own domain name, the URL becomes:
+### Add the CNAME in Cloudflare
 
-```
-https://example.com
-```
+In the `yungwei.com` zone’s `DNS` → `Records`, add:
 
-Not only does this look cleaner, it also feels much more like “your own” website.
+| Field | Value |
+| --- | --- |
+| Type | `CNAME` |
+| Name | `blog` |
+| Target | `<username>.github.io`, using your own GitHub username |
+| Proxy status | `DNS only` (gray cloud) |
+| TTL | `Auto` |
 
-### Domain Hierarchy Basics
+**The CNAME Target is still the account’s `<username>.github.io`, regardless of the repo name.** Do not enter `Weisblog.github.io` or `https://<username>.github.io/Weisblog/`. A DNS record has no URL path. GitHub Pages uses its Custom domain setting to select which repository’s site serves that hostname. [GitHub’s custom domain documentation](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) explicitly excludes the repository name from this Target.
 
-A complete domain name can usually be broken down into the following levels:
+This example uses DNS only, letting GitHub serve the website and HTTPS directly. If `blog` already has an A, AAAA, or CNAME record, identify its service before resolving the conflict. Leave the apex and other subdomains alone.
 
-| **Level**                 | **Example**                  | **Description**                                                                                   |
-| ------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------- |
-| Top-Level Domain (TLD)    | `.com`, `.io`, `.org`, `.tw` | The rightmost part of a domain, indicating its type or region                                     |
-| Second-Level Domain (SLD) | `example.com`(`example`)     | The actual domain name you purchase and own; the main identifier of the site                      |
-| Subdomain                 | `www.example.com`(`www`)     | An extension built on top of the second-level domain, often used to separate services or purposes |
+### How do A records and CNAME records differ?
 
-As you can see, **domain names are extended by adding prefixes to the left**, while the top-level domain on the far right serves as the starting point of the entire structure.
+An A record maps a name to an IPv4 address; a CNAME maps a name to another name. It is not a rule that A records are only for the apex or CNAME records only for `www`.
 
-### Why Use Your Own Domain Name?
+Our `blog` subdomain needs only the CNAME above. If you choose to put the **apex domain itself** on GitHub Pages, that is a different setup. One option uses GitHub’s four A records:
 
-Setting up a custom domain usually has several practical benefits:
-
-- **More professional and recognizable**
-    - A personal website, technical blog, or portfolio no longer looks tied to a specific platform
-- **Decoupled from the hosting provider**
-    - The URL belongs to you, not GitHub; even if you switch hosting platforms later, the URL does not need to change
-- **Better for long-term operation**
-    - Helps accumulate SEO value and makes sharing easier, such as using the link on business cards or resumes
-
-> [!info]- What is SEO?
-> SEO (Search Engine Optimization) refers to a set of techniques used to optimize a website’s content and structure so that search engines can better understand and index it, improving its ranking and visibility in search results.
-
----
-
-## 2. Buying Your Own Domain with Namecheap
-
-> This part requires a small purchase. A domain usually costs a few hundred TWD per year, which works out to just a few dozen per month. For a clean, personal URL, I think it’s worth it.
-
-First, go to the [Namecheap website](https://www.namecheap.com/) and search for a domain name you like. Other large domain registrars include [GoDaddy](https://www.godaddy.com/en) and [Gandi](https://www.gandi.net/en-US); the choice mainly comes down to personal preference.
-
-![](assets/index/file-20251230222313502-24e3b38a-8647-4501-87ad-177029ce6b62.png)
-
-You’ll see results like the following:
-
-![](assets/index/file-20251230222328106-abb6ac26-5234-427a-b2dc-d1b6eb0f0005.png)
-
-If the domain is available, you’ll see **Add to cart**. Different top-level domains have different prices; commonly chosen ones include `.com`, `.io`, `.net`, and `.me`.
-
-Next, proceed through the registration and checkout process. You can leave **AUTO-RENEW** enabled to avoid forgetting to renew the domain after one year. At this stage, there is **no need to purchase an additional SSL certificate**, as GitHub Pages will automatically provide and configure HTTPS later.
-
-> [!info]- What is SSL?
-> SSL (Secure Sockets Layer) is an encryption technology that secures data transmission between users and websites, preventing eavesdropping or tampering. Once enabled, a site switches from HTTP to HTTPS.
-
-![](assets/index/file-20251230222422647-5db52b0d-894b-41d3-b1bd-36a935aa1156.png)
-
-After a successful purchase, you’ll receive an order confirmation email:
-
-![](assets/index/file-20251230223006342-e589299b-3df9-4f8a-a84a-f75bfd68c89e.png)
-
-Don’t forget to click the verification link in the other email you receive:
-
-![](assets/index/file-20251230222952655-12991018-00f4-4c47-98f9-afb110f2dcde.png)
-
----
-
-## 3. Configuring DNS on Namecheap
-
-Next, we’ll configure DNS so that the domain name you enter can be correctly translated into an IP address.
-
-Go to `Account` → `Dashboard`:
-
-![](assets/index/file-20251230223331528-cb7c75b2-358c-4be9-8780-275759fcd626.png)
-
-Find the domain you just purchased and click `MANAGE`:
-
-![](assets/index/file-20251230223414290-1270c56d-b3de-4984-8c0d-3846e51f8917.png)
-
-On the `Domain` page, select `Namecheap BasicDNS`:
-
-![](assets/index/file-20251231180222643-6ed45616-97b8-4e63-962c-7e1f59bd3d50.png)
-
-Switch to the `Advanced DNS` tab and add **A Records** using the following four IP addresses:
-
-```
+```text
 185.199.108.153
 185.199.109.153
 185.199.110.153
 185.199.111.153
 ```
 
-![](assets/index/file-20251230223836201-257afe8f-7ad9-4d36-a599-f15d7e2457a4.png)
+For that setup, enter your apex domain in Pages and consider `www` DNS and redirects separately. Do not change `yungwei.com`’s A records just to configure `blog` in this guide.
 
-These are the official IP addresses used by GitHub Pages. By configuring them, you are pointing your domain to where GitHub Pages hosts your site.
+## 5. Set Hugo’s URL and check HTTPS
 
-Next, add a **CNAME Record** as shown below. For the `Value`, enter `<username>.github.io`, which was configured in the previous article.
-
-![](assets/index/file-20251231181255529-b8388cb4-f7ca-4cd6-b62e-303ffe2f31ac.png)
-
-> [!NOTE]+ What’s the difference between an A Record and a CNAME?
-> The **A Record** handles the apex domain (`weiweifan.com`), while the **CNAME** handles subdomains (`www.weiweifan.com`), allowing both to point to the same GitHub Pages site.
-
----
-
-## 4. Setting a Custom Domain on GitHub Pages
-
-We’re almost there. GitHub Pages provides built-in support for custom domains, and we just need to configure it.
-
-First, go back to your local project and edit `hugo.toml` (if you followed the setup from previous articles, the file will be under `config/_default/`; with the default structure, it’s in the project root). Update the `baseURL` to your own domain:
+Back in your local `Weisblog/`, update the existing value in `config/_default/hugo.toml`:
 
 ```toml
-baseURL = "https://weiweifan.com/"
+baseURL = "https://blog.yungwei.com/"
 ```
 
-Push the change to GitHub:
+Keep the trailing `/`, without `/Weisblog/`. The Actions workflow in Part 2 builds with the `base_url` returned by Pages. Its Custom domain and this configuration should agree so canonical URLs, images, and sitemaps use the same address.
+
+For manual deployment from Part 2, Pages adds a `CNAME` file to the publishing branch. Pull that commit first, and add `static/CNAME` to the Hugo source with one line, `blog.yungwei.com`, so future builds and syncs preserve it. With a custom Actions deployment, the Pages setting controls the domain and this file is not required.
+
+Preview the site, review the changes, and push:
 
 ```shell
 git add .
-git commit -m "update baseURL to https://weiweifan.com/"
+git commit -m "Set custom domain baseURL"
 git push
 ```
 
-Back on GitHub, go to your `<username>.github.io` repository → `Settings` → `Pages`. Enter your domain name under **Custom domain**, then click `Save`.
+With manual deployment, rebuild and sync as described in Method 1 of Part 2 before pushing. Do not push Hugo source directly into the publishing branch.
 
-![](assets/index/file-20251230224922307-6cdd8b8e-5782-4170-96fc-3b8facd4315c.png)
+Back in Pages, wait for the DNS check and certificate provisioning, then enable **Enforce HTTPS**. GitHub Pages provides free HTTPS using [Let’s Encrypt](https://letsencrypt.org/) certificates. DNS and certificate issuance may take time, so the HTTPS option may not be available immediately.
 
-Wait for the DNS check to complete (this usually takes only a few minutes):
+If it remains unavailable, check the CNAME Target, gray-cloud status, the Pages domain, and [GitHub’s HTTPS troubleshooting instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https). Do not repeatedly remove and re-add settings just because they have not taken effect yet.
 
-![](assets/index/file-20251230225028712-cfbf2665-039a-4327-99ce-a112a93951c3.png)
+When setup is complete, open your production address and check the homepage, posts, images, and language switch. Configuring `blog.yungwei.com` does not automatically make `yungwei.com` or `www.yungwei.com` the same website.
 
-Once the check passes:
+If you are moving an existing site to another domain, redirect old article URLs to their matching new URLs and keep slugs and paths where possible. DNS alone does not create HTTP redirects. Part 4 covers search indexing and traffic measurement for the new domain.
 
-![](assets/index/file-20251230225046033-9ac15fcf-7b9a-4a26-9da2-a6d4d720bed4.png)
-
-Then enable **Enforce HTTPS**. GitHub Pages will automatically request a free SSL certificate from [Let’s Encrypt](https://letsencrypt.org/), so no manual configuration is required. If the option is temporarily unavailable, refresh the page and try again. If it still doesn’t work, clear the **Custom domain** field, re-enter it, and wait a bit longer.
-
-![](assets/index/file-20251230225104613-90cd05df-2bae-461a-bc04-49e6bb521963.png)
-
-After everything is set up, visit https://weiweifan.com to confirm that the site loads correctly. You can also check https://www.weiweifan.com — both URLs should work.
-
-![](assets/index/file-20251231183549781-8536c5a4-bedc-4beb-978c-507e0f5e86c9.png)
-
-At this point, you can take a short break. As long as the domain itself does not change, switching hosting platforms later usually won’t immediately erase the SEO value you’ve already accumulated.
-
-> The next article will introduce how to set up **Google Analytics** and **Google Search Console** to track traffic and user behavior on a static website, and help Google index your site more quickly and accurately.
-> 
-> 👉 [Hugo × GitHub Pages – Part 4: Google Analytics and Search Console for Traffic Tracking and Indexing](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-4/)
+> 👉 [Part 4: Google Analytics and Search Console setup](/en/posts/self-hosted-website-with-hugo-and-github-pages-part-4/)

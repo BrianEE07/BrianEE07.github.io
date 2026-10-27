@@ -1,7 +1,7 @@
 ---
 title: "Building My Portfolio Dashboard with Codex: First Impressions from an AI Agent Project"
 date: 2026-05-03T22:47:26+08:00
-draft: false
+draft: true
 aliases:
   - "Building My Portfolio Dashboard with Codex: First Impressions from an AI Agent Project"
 description: A short note on my first side project with OpenAI Codex. I started from an investment website prototype, used an AI agent to read code, break down requirements, and build features, and also wrote down a few collaboration patterns that have worked well for me so far.

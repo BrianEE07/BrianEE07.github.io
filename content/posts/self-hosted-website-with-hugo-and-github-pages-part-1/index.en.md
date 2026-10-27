@@ -44,7 +44,7 @@ But after actually using it, you’ll realize this isn’t just marketing langua
 
 Hugo’s biggest strengths are that it is **fast, simple, and does not rely on a heavy frontend ecosystem**.
 
-It is a single binary executable. There’s no need for Node.js, no need to install a large number of packages. As long as your content and configuration are ready, Hugo can quickly generate the entire website.
+Hugo itself is a single executable and does not require Node.js to run. If your theme uses npm, Go modules, or a separate Sass tool, install those dependencies as its documentation requires. Once the content and configuration are ready, Hugo can quickly generate the site.
 
 Compared to tools like [Hexo](https://hexo.io/zh-tw/) or [Jekyll](https://jekyllrb.com/), which require additional runtime environments, Hugo is much simpler to install and maintain, with very few dependency-related issues.
 
@@ -63,10 +63,10 @@ We’ll use [Homebrew](https://brew.sh/) to install Hugo. If you’ve never used
 brew update && brew upgrade && brew cleanup
 ```
 
-If you don’t have [Git](https://git-scm.com/install/mac) installed, install it as well (you _can_ proceed without Git, but things will get much harder later):
+Install [Git](https://git-scm.com/install/mac) and Go for version control and any modules used by the theme (if Git is new to you, the later steps may take more effort):
 
 ```shell
-brew install git
+brew install git go
 ```
 
 Install Hugo:
@@ -75,7 +75,7 @@ Install Hugo:
 brew install hugo
 ```
 
-Check the installation by running `hugo version`. If you see version information, Hugo is successfully installed:
+Run `hugo version` to check the installation. The output below is what I originally saw, using an older version. For a fresh installation of Blowfish, check its [minimum requirement](https://blowfish.page/docs/installation/) first, currently Hugo 0.162.0. Do not use the old version shown below as your installation target:
 
 ```shell
 hugo version
@@ -87,17 +87,19 @@ hugo v0.152.2+extended+withdeploy darwin/arm64 BuildDate=2025-10-24T15:31:49Z Ve
 
 ### (2) Create a Hugo Project
 
+This series uses `Weisblog` for the local project folder and the GitHub repository we will create later. The site title is **Was Wei weiß**. You can choose your own name, but use it consistently in the paths that follow.
+
 Create a new project using `hugo new site <project-name>`:
 
 ```shell
-hugo new site mysite
-cd mysite
+hugo new site Weisblog
+cd Weisblog
 ```
 
 You should now see the following directory structure:
 
 ```shell
-mysite/
+Weisblog/
 |--- archetypes/
 |--- assets/
 |--- content/   # Markdown pages and posts
@@ -126,7 +128,7 @@ You can further customize the theme later to create your own visual style. If yo
 
 Below, I’ll use Blowfish as an example. The installation process is similar for most themes, but it’s always recommended to follow the theme’s official documentation. The [Blowfish Installation Guide](https://blowfish.page/docs/installation/) is particularly clear.
 
-Inside the `mysite/` directory, run:
+Inside the `Weisblog/` directory, run:
 
 ```shell
 git init
@@ -146,8 +148,16 @@ cp -r themes/blowfish/config config
 This creates a new `config/` directory. Open `config/_default/hugo.toml` and uncomment the following line (**not** the one under `themes/blowfish/config/_default/`):
 
 ```shell
-theme = "blowfish" # UNCOMMENT THIS LINE`
+theme = "blowfish"
 ```
+
+Next, open the copied `config/_default/languages.en.toml` in your project and change its existing `title` to your site name. Check any other enabled language files as well so they do not keep the theme’s sample title.
+
+```toml
+title = "Was Wei weiß"
+```
+
+The local preview screenshots below show the Blowfish defaults; the heading will change with your settings.
 
 #### Create Your First Post
 
@@ -190,7 +200,7 @@ Since our post is marked as `draft = true`, we need to run:
 hugo server -D
 ```
 
-**The generated `public/` directory is a complete static website!**
+`hugo server` provides the live preview. Running `hugo` produces the complete static website under `public/` for deployment in the next article.
 
 Based on the output, open the local URL in your browser—usually `http://localhost:1313/`:
 
