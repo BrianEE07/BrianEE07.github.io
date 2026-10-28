@@ -46,7 +46,12 @@ tags:
 
 上一章的 project site 預設是 `https://<username>.github.io/Weisblog/`。設定自訂網域後，讀者使用 `https://blog.yungwei.com/`，不需要再接 `/Weisblog/`。
 
-我覺得自訂網域值得的地方，是分享出去的網址掌握在自己手上；以後搬 Hosting，仍能保留這個門牌。SEO 能不能延續，還要看頁面路徑、轉址與內容，光是買了網域並不保證排名。
+我覺得自訂網域值得的地方，是分享出去的網址掌握在自己手上；以後搬 Hosting，仍能保留這個門牌。
+
+> [!info]- SEO 是什麼？
+> SEO 是搜尋引擎最佳化，讓內容與網站結構更容易被搜尋引擎理解。
+>
+> SEO 能不能延續，還要看頁面路徑、轉址與內容，光是買了網域並不保證排名。
 
 ## 二、在 Namecheap 註冊網域
 
@@ -60,7 +65,8 @@ tags:
 4. 這個 GitHub Pages 流程不需要另外購買 Hosting 或 SSL 憑證，HTTPS 由 Pages 提供。
 5. 付款後保留訂單，收到註冊聯絡資料驗證信時，依信件要求完成驗證。
 
-一般仍會看到「SSL 憑證」這個名稱；現在 HTTPS 實際使用的是 TLS 加密，用來保護瀏覽器與網站之間的傳輸。
+> [!info]- SSL 與 TLS
+> 一般仍會看到「SSL 憑證」這個名稱；現在 HTTPS 實際使用的是 TLS 加密，用來保護瀏覽器與網站之間的傳輸。
 
 ## 三、讓 Cloudflare 管 DNS
 
@@ -72,6 +78,10 @@ tags:
 2. 核對掃描或匯入的 DNS 記錄。既有網站、郵件的 MX／TXT 與其他子網域都要保留；自動掃描不保證抓到全部。
 3. 記下 Cloudflare 分配給這個 zone 的兩個 nameserver，每個網域分到的值可能不同，不要照抄別人的。
 4. 到 Namecheap → `Domain List` → 該網域的 `Manage` → `Nameservers`，選 **Custom DNS**，填入那兩個 Cloudflare nameserver 後儲存。
+
+    ![Namecheap 網域的 Manage 入口](assets/index/file-20251230223414290-1270c56d-b3de-4984-8c0d-3846e51f8917.png)
+
+    *舊畫面：網域名稱不同，Manage 入口相同。*
 5. 等 Cloudflare 顯示 Active，再到這個 zone 的 `DNS` → `Records` 管理記錄。
 
 若原先已啟用 DNSSEC，更換 nameserver 前先依 [Cloudflare 完整設定說明](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) 處理舊 DS 記錄，切換完成後再設定新的 DNSSEC；舊 DS 與新 DNS 不相符，可能讓整個網域無法解析。Namecheap 的介面位置可對照[官方 nameserver 說明](https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-to-change-dns-for-a-domain/)。
@@ -87,6 +97,10 @@ blog.yungwei.com
 ```
 
 這裡只填主機名稱，不加 `https://`，也不加 `/Weisblog/`。儲存後 DNS 檢查暫時尚未通過沒關係，接下來才建立對應記錄。GitHub 建議先在 Pages 加入網域，再讓 DNS 指過去；也可依[官方說明](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages)先做帳號層級的網域驗證，與下面的網站路由設定分開處理。
+
+![GitHub Pages 的 Custom domain 欄位](assets/index/file-20251230224922307-6cdd8b8e-5782-4170-96fc-3b8facd4315c.png)
+
+*舊畫面：Repo 與網域不同，Custom domain 欄位位置相同。*
 
 ### 到 Cloudflare 新增 CNAME
 
@@ -106,7 +120,8 @@ blog.yungwei.com
 
 ### A Record 與 CNAME 怎麼分？
 
-A Record 是名稱指向 IPv4，CNAME 是名稱指向另一個名稱；並不是「A 只能給根網域、CNAME 只能給 www」。
+> [!NOTE]+ 基本差別
+> A Record 將名稱對應到 IPv4 位址；CNAME 將名稱對應到另一個網域名稱。
 
 這次用 `blog` 子網域，只需要前面的 CNAME。若你選擇把**根網域本身**放在 GitHub Pages，才使用另一套設定，例如 GitHub 提供的四個 A Record：
 
@@ -142,6 +157,10 @@ git push
 手動部署的讀者則照 Part 2 方法一重新編譯與同步後推送，不是直接把 Hugo 原始碼放進發布分支。
 
 回到 Pages，等 DNS 檢查與憑證準備完成，再勾 **Enforce HTTPS**。GitHub Pages 提供免費 HTTPS，背後使用 [Let’s Encrypt](https://letsencrypt.org/) 憑證；DNS 與憑證可能需要等待，HTTPS 選項也不一定立刻可用。
+
+![GitHub Pages 的 Enforce HTTPS 選項](assets/index/file-20251230225104613-90cd05df-2bae-461a-bc04-49e6bb521963.png)
+
+*Enforce HTTPS 的勾選位置（原示範畫面）。*
 
 若一直無法啟用，先核對 CNAME Target、灰雲狀態、Pages 的網域與 [GitHub HTTPS 排錯說明](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https)。不要只因為沒立刻成功，就反覆刪除再新增設定。
 

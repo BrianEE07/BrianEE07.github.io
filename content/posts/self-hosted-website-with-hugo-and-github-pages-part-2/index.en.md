@@ -29,6 +29,10 @@ GitHub Pages is GitHub’s static website hosting service. If Hugo’s `public/`
 
 Create a public repository named `Weisblog` on [GitHub](https://github.com/). This is the example name for this guide. Replace every `<username>` below with your own GitHub username.
 
+![Create a repository on GitHub](assets/index/file-20251226161539378-f29337d4-dd0a-4e5a-b139-13cba3740b86.png)
+
+*The New repository button on the GitHub dashboard.*
+
 The default Pages URL depends on the repository name:
 
 | Type | Repository name | Default URL |
@@ -61,7 +65,8 @@ git remote add origin "https://github.com/<username>/Weisblog.git"
 cd ../Weisblog
 ```
 
-Set only the posts you intend to publish to `draft = false`, or `draft: false` with YAML frontmatter. Keep all other drafts as they are.
+> [!tip]
+> Set only the posts you intend to publish to `draft = false`, or `draft: false` with YAML frontmatter. Keep all other drafts as they are.
 
 Set the existing `baseURL` in `config/_default/hugo.toml` to your project site URL:
 
@@ -114,6 +119,10 @@ git push -u origin main
 If `git remote -v` already lists `origin`, check its destination. Skip `remote add` if it is correct. Use `git remote set-url origin <your-repo-URL>` only when you intend to change it.
 
 Open the `Weisblog` repo’s `Settings` → `Pages` → `Build and deployment` and set Source to **GitHub Actions**. There is no need to run Jekyll first or expect an initial failure as part of setup.
+
+![Select the GitHub Pages source](assets/index/file-20251229223057206-47cbf2df-95a4-4a52-ac49-bc1277d5830e.png)
+
+*Older example: the repo name differs; select GitHub Actions here.*
 
 Create the workflow file in your local `Weisblog/`:
 
@@ -249,7 +258,11 @@ baseURL = "https://<username>.github.io/Weisblog/"
 
 `caches.images` stores Hugo image-processing results, so operations such as Resize, Fit, and Fill do not have to start over each time. The workflow’s Cache restore/save steps share that cache between Actions runs.
 
-Set posts intended for publication to `draft: false` (`draft = false` in TOML), keeping other drafts unchanged. Preview public content with `hugo server`; add `-D` only when you need to inspect drafts. The production workflow does not use `-D`.
+> [!tip]
+> Set posts intended for publication to `draft: false` (`draft = false` in TOML), keeping other drafts unchanged.
+
+> [!important]
+> Preview public content with `hugo server`; add `-D` only when you need to inspect drafts. The production workflow does not use `-D`.
 
 Then push:
 
@@ -260,6 +273,10 @@ git push
 ```
 
 Check that both build and deploy succeed in Actions, then open the URL provided by Pages. A green checkmark means the workflow completed. You still need to check pages, navigation, and images yourself; the workflow cannot judge whether the writing is correct.
+
+![Deployments on the GitHub repository page](assets/index/file-20251229224715460-c3df885a-5c7f-4d2f-9510-390edbd29c20.png)
+
+*Older example: the repo name differs; deployment results appear under Deployments on the right.*
 
 For later updates, preview locally, review what you are committing, and push. If the URL includes `/Weisblog/`, article and asset links must keep that prefix too. Hugo’s `relURL`/`relref` can generate links in templates and content; hard-coding `/posts/` would instead point to the account’s root site.
 

@@ -29,6 +29,10 @@ GitHub Pages 是 GitHub 提供的靜態網站託管服務。如果把 Hugo 產�
 
 到 [GitHub](https://github.com/) 新增一個公開的 Repo，名稱填 `Weisblog`。這是本篇的教學範例名稱；下面所有 `<username>` 都要換成你自己的 GitHub 帳號。
 
+![GitHub 新增 Repo 入口](assets/index/file-20251226161539378-f29337d4-dd0a-4e5a-b139-13cba3740b86.png)
+
+*GitHub 首頁的 New 入口。*
+
 GitHub Pages 的預設網址取決於 Repo 名稱：
 
 | 類型 | Repo 名稱 | 預設網址 |
@@ -61,7 +65,8 @@ git remote add origin "https://github.com/<username>/Weisblog.git"
 cd ../Weisblog
 ```
 
-先將「這次要公開」的文章改成 `draft = false`，YAML frontmatter 則是 `draft: false`。其他草稿繼續保留，不要為了測試一次全部打開。
+> [!tip]
+> 先將「這次要公開」的文章改成 `draft = false`，YAML frontmatter 則是 `draft: false`。其他草稿繼續保留，不要為了測試一次全部打開。
 
 在 `config/_default/hugo.toml` 將既有的 `baseURL` 設成自己的 project site 網址：
 
@@ -114,6 +119,10 @@ git push -u origin main
 `git remote -v` 如果已經列出 `origin`，先核對是否是這個 Repo；正確就略過 `remote add`。確定要更換才用 `git remote set-url origin <自己的Repo網址>`，避免推錯地方。
 
 回到 `Weisblog` Repo → `Settings` → `Pages` → `Build and deployment`，把 Source 選成 **GitHub Actions**。不需要先讓 Jekyll 跑一次，也不必把首次失敗當作正常步驟。
+
+![GitHub Pages Source 選擇](assets/index/file-20251229223057206-47cbf2df-95a4-4a52-ac49-bc1277d5830e.png)
+
+*舊畫面：Repo 名稱不同，這裡選 GitHub Actions。*
 
 在本地 `Weisblog/` 建立流程檔：
 
@@ -249,7 +258,11 @@ baseURL = "https://<username>.github.io/Weisblog/"
 
 `caches.images` 用來保存 Hugo 的圖片處理結果，像 Resize、Fit、Fill 就不必每次從頭跑；流程裡的 Cache restore／save 則讓不同次 Actions 建置共用快取。
 
-準備公開的文章設成 `draft: false`（TOML 是 `draft = false`），其餘草稿維持原值。先跑 `hugo server` 檢查公開內容，若要看草稿才加 `-D`；正式 Actions 不加 `-D`。
+> [!tip]
+> 準備公開的文章設成 `draft: false`（TOML 是 `draft = false`），其餘草稿維持原值。
+
+> [!important]
+> 先跑 `hugo server` 檢查公開內容，若要看草稿才加 `-D`；正式 Actions 不加 `-D`。
 
 確認後推送：
 
@@ -260,6 +273,10 @@ git push
 ```
 
 到 Actions 檢查 build 與 deploy 是否都成功，再打開 Pages 提供的網址。綠色勾勾表示流程執行成功，頁面、選單與圖片還是要自己點過；流程不會替你判斷文章寫得對不對。
+
+![GitHub Repo 的 Deployments 區域](assets/index/file-20251229224715460-c3df885a-5c7f-4d2f-9510-390edbd29c20.png)
+
+*舊畫面：Repo 名稱不同，部署結果看右側 Deployments。*
 
 之後更新只要在本地預覽、確認提交內容，再推送即可。如果網址下有 `/Weisblog/`，文章連結與資產也要保留這段前綴；模板內產生連結可使用 Hugo 的 `relURL`／`relref`，避免硬寫 `/posts/` 直接跳到帳號主站。
 

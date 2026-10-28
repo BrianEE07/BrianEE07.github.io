@@ -46,7 +46,12 @@ You register `yungwei.com` and can add `blog` yourself, without buying another d
 
 The project site from Part 2 defaults to `https://<username>.github.io/Weisblog/`. With a custom domain, visitors use `https://blog.yungwei.com/`, without `/Weisblog/`.
 
-For me, the value of a custom domain is keeping control of the address I share. I can keep it if I change hosting providers. Preserving search performance also depends on page paths, redirects, and content; buying a domain alone does not guarantee rankings.
+For me, the value of a custom domain is keeping control of the address I share. I can keep it if I change hosting providers.
+
+> [!info]- What is SEO?
+> SEO means search engine optimization: making content and site structure easier for search engines to understand.
+>
+> Preserving search performance also depends on page paths, redirects, and content; buying a domain alone does not guarantee rankings.
 
 ## 2. Register a domain with Namecheap
 
@@ -60,7 +65,8 @@ Search for your preferred domain on [Namecheap](https://www.namecheap.com/). You
 4. This GitHub Pages setup does not need an additional hosting package or SSL certificate; Pages provides HTTPS.
 5. Keep the order confirmation and complete any contact-verification email required by the registrar.
 
-“SSL certificate” remains a common label. Modern HTTPS uses TLS encryption to protect traffic between the browser and website.
+> [!info]- SSL and TLS
+> “SSL certificate” remains a common label. Modern HTTPS uses TLS encryption to protect traffic between the browser and website.
 
 ## 3. Let Cloudflare manage DNS
 
@@ -72,6 +78,10 @@ For a new setup:
 2. Review the scanned or imported records. Preserve existing sites, email MX/TXT records, and other subdomains; the automatic scan may miss records.
 3. Note the two nameservers assigned to this zone. They can differ between domains, so do not copy someone else’s values.
 4. In Namecheap, open `Domain List` → your domain’s `Manage` → `Nameservers`. Select **Custom DNS**, enter those Cloudflare nameservers, and save.
+
+    ![The domain Manage button in Namecheap](assets/index/file-20251230223414290-1270c56d-b3de-4984-8c0d-3846e51f8917.png)
+
+    *Older example: the domain differs; the Manage button is in the same place.*
 5. Wait for Cloudflare to show Active, then manage records in the zone’s `DNS` → `Records`.
 
 If DNSSEC is already enabled, follow [Cloudflare’s full setup instructions](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) to handle the old DS record before switching nameservers, then configure the new DNSSEC setup afterward. An old DS record that does not match the new DNS can prevent the entire domain from resolving. See [Namecheap’s nameserver instructions](https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-to-change-dns-for-a-domain/) for its interface.
@@ -87,6 +97,10 @@ blog.yungwei.com
 ```
 
 Enter only the hostname, without `https://` or `/Weisblog/`. Save it. A pending DNS check is expected at this point because we have not created the record yet. GitHub recommends adding the domain in Pages before pointing DNS to it. You can also [verify ownership at the account level](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages) first; that is separate from routing the site below.
+
+![The Custom domain field in GitHub Pages](assets/index/file-20251230224922307-6cdd8b8e-5782-4170-96fc-3b8facd4315c.png)
+
+*Older example: the repo and domain differ; the Custom domain field is in the same place.*
 
 ### Add the CNAME in Cloudflare
 
@@ -106,7 +120,8 @@ This example uses DNS only, letting GitHub serve the website and HTTPS directly.
 
 ### How do A records and CNAME records differ?
 
-An A record maps a name to an IPv4 address; a CNAME maps a name to another name. It is not a rule that A records are only for the apex or CNAME records only for `www`.
+> [!NOTE]+ The basic difference
+> An A record maps a name to an IPv4 address; a CNAME maps a name to another domain name.
 
 Our `blog` subdomain needs only the CNAME above. If you choose to put the **apex domain itself** on GitHub Pages, that is a different setup. One option uses GitHub’s four A records:
 
@@ -142,6 +157,10 @@ git push
 With manual deployment, rebuild and sync as described in Method 1 of Part 2 before pushing. Do not push Hugo source directly into the publishing branch.
 
 Back in Pages, wait for the DNS check and certificate provisioning, then enable **Enforce HTTPS**. GitHub Pages provides free HTTPS using [Let’s Encrypt](https://letsencrypt.org/) certificates. DNS and certificate issuance may take time, so the HTTPS option may not be available immediately.
+
+![The Enforce HTTPS option in GitHub Pages](assets/index/file-20251230225104613-90cd05df-2bae-461a-bc04-49e6bb521963.png)
+
+*The Enforce HTTPS checkbox in the original example.*
 
 If it remains unavailable, check the CNAME Target, gray-cloud status, the Pages domain, and [GitHub’s HTTPS troubleshooting instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https). Do not repeatedly remove and re-add settings just because they have not taken effect yet.
 

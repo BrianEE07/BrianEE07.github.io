@@ -35,11 +35,19 @@ GA4 可以看流量來源、瀏覽頁面與互動事件。先到 [Google Analyti
 3. 編輯串流詳細資料，網站網址使用 `https://blog.yungwei.com/`，串流名稱可改成 `Was Wei weiß`。
 4. 記下同一份串流的評估 ID（Measurement ID），格式是 `G-XXXXXXXXXX`；Hugo 也繼續使用這組 ID。
 
+![GA4 串流詳細資料中的評估 ID](assets/index/file-20260105222421003-dda13e25-772a-4e2b-9a10-90c15a822f69.png)
+
+*舊畫面：網域與串流名稱不同，評估 ID 在右上角。*
+
 資源與串流名稱是辨識用的文字，真正接收事件的是安裝在網站上的 ID。改後台網址不會替網站自動裝好追蹤碼。串流修改位置可對照 [Google 官方說明](https://support.google.com/analytics/answer/9304776?hl=zh-Hant)。
 
 ### 第一次使用，才建立新的資源與串流
 
 如果原本完全沒有 GA4，照[首次設定流程](https://support.google.com/analytics/answer/9304153?hl=zh-Hant)建立帳戶、property，再新增 Web 串流。帳戶名稱可以自行取，時區與幣別依自己的報表需求填寫：
+
+![GA4 新增網站串流的平台選擇](assets/index/file-20260105222339657-47516605-a135-4d89-aa05-18912e765572.png)
+
+*第一次新增串流時選「網站」（Web）。*
 
 | 項目 | 本篇範例／填寫方式 |
 | --- | --- |
@@ -48,6 +56,10 @@ GA4 可以看流量來源、瀏覽頁面與互動事件。先到 [Google Analyti
 | 網站網址 | `https://blog.yungwei.com/`；介面若將協定拆開，選 HTTPS，網址欄只填 `blog.yungwei.com` |
 | 串流名稱 | `Was Wei weiß` |
 | 評估 ID | 使用系統提供的 `G-...`，不要照抄文章的佔位值 |
+
+![GA4 網站網址與串流名稱欄位](assets/index/file-20260105222346201-a6b2d8c4-1c79-47dc-9a41-f397b28eca9a.png)
+
+*舊畫面：網址與串流名稱不同，請填自己的正式網址。*
 
 我當初直接拿網站網域當 property 名稱，也可以；名稱不需要跟網址綁死。原本就有帳戶的話，也不用為了每個網站重建帳戶。
 
@@ -118,7 +130,8 @@ git push
 
 [Google Search Console](https://search.google.com/search-console/about) 用來查看搜尋曝光、點擊、索引狀態與網站問題。GA4 看使用者到站後的行為，Search Console 則能幫忙檢查 Google 搜尋這一端的狀況。
 
-SEO 是搜尋引擎最佳化，讓內容與網站結構更容易被搜尋引擎理解；完成驗證並不保證排名或立即收錄。
+> [!info]- SEO 是什麼？
+> SEO 是搜尋引擎最佳化，讓內容與網站結構更容易被搜尋引擎理解；完成驗證並不保證排名或立即收錄。
 
 ### 先檢查既有資源涵蓋哪裡
 
@@ -137,7 +150,15 @@ Search Console 也先找既有資源，但它的邊界跟 GA4 不同。GA4 可�
 
 有 DNS 管理權限、想涵蓋整個網域時，新增 Domain 資源 `yungwei.com`，不含協定與路徑。若只想看部落格，也可以用 URL-prefix `https://blog.yungwei.com/`；仍使用 GitHub 預設 project site 的讀者，填 `https://<username>.github.io/Weisblog/`。
 
+![Search Console 的兩種資源選項](assets/index/file-20260110162042342-0793a88a-eaa0-472c-97bf-294a6c15b665.png)
+
+*舊畫面：網域不同，兩種資源的選擇位置相同。*
+
 我先前使用自訂網域時採用 DNS 驗證。以 `yungwei.com` 的 Domain 資源為例，複製 Google 提供的驗證字串，到 **Cloudflare 的 `yungwei.com` zone** 新增：
+
+![Search Console 提供的 TXT 驗證值](assets/index/file-20260110163755417-89196275-f37a-45e0-88f9-683606122229.png)
+
+*舊畫面：網域及 DNS 業者不同，TXT 值請複製自己的。*
 
 | 欄位 | 填寫內容 |
 | --- | --- |
@@ -154,19 +175,30 @@ URL-prefix 可以使用 HTML tag、檔案或符合條件的 GA 等驗證方式�
 
 ## 四、提交 sitemap，確認實際文章狀態
 
-Hugo 會產生 sitemap。一般可從網站根目錄的 `/sitemap.xml` 開始；多語網站可能是 sitemap index，再連到各語言的 sitemap。以本篇網址為例：
-
-```text
-https://blog.yungwei.com/sitemap.xml
-```
+> [!info]+ 什麼是 sitemap.xml？
+> `sitemap.xml` 是提供給搜尋引擎的網址清單。
+>
+> Hugo 會產生 sitemap。一般可從網站根目錄的 `/sitemap.xml` 開始；多語網站可能是 sitemap index，再連到各語言的 sitemap。以本篇網址為例：
+>
+> ```text
+> https://blog.yungwei.com/sitemap.xml
+> ```
 
 先用瀏覽器打開它，確認不是 404，也確認裡面的網址都使用正式網域。若本地正式編譯，對應輸出是 `public/sitemap.xml`；`baseURL` 設錯時，清單裡的網址也可能跟著錯。
 
 到涵蓋新網址的 Search Console 資源，開啟「Sitemap」，填入完整 sitemap 網址並提交。看後續讀取狀態與錯誤，多語的子 sitemap 也要能正常讀取。
 
+![Search Console 的 Sitemap 提交欄位](assets/index/file-20260110165207540-e1fe56ea-0ee8-475d-a086-901e9b9cbfe4.png)
+
+*舊畫面：網域不同，提交欄位請填新站 sitemap 網址。*
+
 Google 說明 [sitemap 有助於發現網址，但不保證抓取或建立索引](https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview)。提交成功表示 Google 能處理這份清單，不能直接當成每篇文章都已收錄。
 
 想檢查特定文章時，使用「網址審查」貼入正式文章網址，查看 Google 已知的索引狀態；需要時可測試線上網址、要求建立索引。剛上線的內容可能要等一段時間，沒有固定完成期限。
+
+![Search Console 的網址審查與要求建立索引](assets/index/file-20260110171334688-507addf1-cd04-490c-b7ae-acc09b889847.png)
+
+*舊畫面：網址不同，改貼要檢查的正式文章網址。*
 
 你也可以在 Google 試搜：
 
